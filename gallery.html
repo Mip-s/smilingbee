@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Smilingbee</title>
+  <title>Gallery · Smilingbee</title>
   <meta name="description" content="Smilingbee — a Minecraft server. History, lore, player records and gallery.">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,35 +17,20 @@
       <a class="brand" href="index.html"><img src="images/favicon.svg" alt="" width="28" height="28"><span data-site="serverName">Smilingbee</span></a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">☰</button>
       <ul id="nav-links" class="nav-links">
-        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="history.html">History</a></li>
         <li><a href="lore.html">Lore</a></li>
         <li><a href="records.html">Records</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="gallery.html" aria-current="page">Gallery</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section id="home" class="hero">
-      <div class="hero-inner">
-        <h1 class="pixel" data-site="serverName">Smilingbee</h1>
-        <p class="tagline" data-site="tagline"></p>
-        <div class="welcome" id="welcome"></div>
-        <div class="highlights" id="highlights"></div>
-      </div>
-      <div class="grass-edge" aria-hidden="true"></div>
-    </section>
-
-    <section class="section">
+    <section id="gallery" class="section page">
       <div class="container">
-        <h2 class="pixel">Explore</h2>
-        <div class="explore">
-          <a class="explore-card" href="history.html"><span class="icon" aria-hidden="true">⏳</span><span class="pixel">History</span><span>How the server grew, season by season.</span></a>
-          <a class="explore-card" href="lore.html"><span class="icon" aria-hidden="true">📜</span><span class="pixel">Lore</span><span>Stories, places and factions of the world.</span></a>
-          <a class="explore-card" href="records.html"><span class="icon" aria-hidden="true">🏆</span><span class="pixel">Records</span><span>The Hall of Fame and its legends.</span></a>
-          <a class="explore-card" href="gallery.html"><span class="icon" aria-hidden="true">🖼️</span><span class="pixel">Gallery</span><span>Screenshots from around the world.</span></a>
-        </div>
+        <h2 class="pixel">Gallery</h2>
+        <div class="gallery" id="gallery-grid"></div>
       </div>
     </section>
   </main>
@@ -53,6 +38,16 @@
   <footer class="site-footer">
     <p data-site="footer"></p>
   </footer>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-prev" aria-label="Previous image">‹</button>
+    <figure>
+      <img id="lb-img" alt="">
+      <figcaption id="lb-caption"></figcaption>
+    </figure>
+    <button class="lb-next" aria-label="Next image">›</button>
+  </div>
 
   <script src="js/main.js"></script>
 </body>

@@ -37,9 +37,10 @@
         if (String(data[key]).indexOf("PLACEHOLDER") !== -1) node.classList.add("placeholder-tag");
       }
     });
-    if (data.serverName) document.title = data.serverName;
+    if (data.serverName) document.title = document.title.replace("Smilingbee", data.serverName);
 
     var welcome = document.getElementById("welcome");
+    if (!welcome) return; // not the home page
     (data.welcome || []).forEach(function (p) { welcome.appendChild(el("p", null, p)); });
 
     var hl = document.getElementById("highlights");
@@ -168,6 +169,7 @@
     if (lastFocus) lastFocus.focus();
   }
 
+  if (lb) {
   lb.querySelector(".lb-close").addEventListener("click", closeLightbox);
   lb.querySelector(".lb-prev").addEventListener("click", function () { show(current - 1); });
   lb.querySelector(".lb-next").addEventListener("click", function () { show(current + 1); });
@@ -187,6 +189,7 @@
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
     touchX = null;
   });
+  }
 
   // ---------- Nav ----------
   var toggle = document.querySelector(".nav-toggle");
@@ -202,31 +205,21 @@
     }
   });
 
-  // Highlight the nav link for the section currently on screen
-  if ("IntersectionObserver" in window) {
-    var navAnchors = links.querySelectorAll("a");
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        navAnchors.forEach(function (a) {
-          a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
-        });
-      });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    document.querySelectorAll("main section[id]").forEach(function (s) { observer.observe(s); });
-  }
-
   // ---------- Load everything ----------
+  // Every page loads site.json (name, footer). The other files load only on the
+  // page that has a place for them.
   var jobs = [
-    ["site", renderSite, "home"],
-    ["history", renderHistory, "history"],
-    ["lore", renderLore, "lore"],
-    ["records", renderRecords, "records"],
-    ["gallery", renderGallery, "gallery"]
+    ["site", renderSite, null],
+    ["history", renderHistory, "timeline"],
+    ["lore", renderLore, "lore-stories"],
+    ["records", renderRecords, "records-list"],
+    ["gallery", renderGallery, "gallery-grid"]
   ];
   jobs.forEach(function (job) {
+    var target = job[2] && document.getElementById(job[2]);
+    if (job[2] && !target) return;
     load(job[0]).then(job[1]).catch(function (err) {
-      showError(document.getElementById(job[2]), err);
+      showError(target ? target.parentNode : document.querySelector("main"), err);
     });
   });
 })();

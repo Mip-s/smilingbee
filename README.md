@@ -1,14 +1,18 @@
 # Smilingbee — server website
 
-A one-page introduction to the Smilingbee Minecraft server: Home, History, Lore, Hall of Fame and Gallery.
+An introduction to the Smilingbee Minecraft server, split into five pages: Home, History, Lore, Hall of Fame and Gallery.
 Plain HTML/CSS/JS — no build step, no dependencies.
 
 ## Folder layout
 
 ```
-index.html          page structure (rarely needs editing)
+index.html          Home page
+history.html        History page
+lore.html           Lore page
+records.html        Hall of Fame page
+gallery.html        Gallery page
 css/style.css       look & colors (colors are at the top of the file)
-js/main.js          loads the content files and draws the page
+js/main.js          loads the content files and draws each page
 content/            ← ALL the text lives here
   site.json         server name, tagline, welcome text, highlights, footer
   history.json      timeline entries
@@ -20,6 +24,9 @@ images/gallery/     screenshots (placeholder-*.svg are temporary)
 
 Everything marked **PLACEHOLDER** is example text. While it's still there, it shows a faint dashed
 outline on the page so you can spot what's left to replace.
+
+To add a new page: copy one of the page files (e.g. `history.html`), change its `<title>` and
+content, and add a link to it in the `<nav>` menu of **every** page (the menu is repeated in each file).
 
 ## Adding content
 
