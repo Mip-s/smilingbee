@@ -1,0 +1,11 @@
+{
+  "_note": "PLACEHOLDER: put screenshots in images/gallery/ and list them here. 'thumb' is optional (a smaller version for the grid); 'src' is the full-size image shown in the lightbox.",
+  "images": [
+    { "src": "images/gallery/placeholder-1.svg", "caption": "PLACEHOLDER — Spawn at sunrise" },
+    { "src": "images/gallery/placeholder-2.svg", "caption": "PLACEHOLDER — Honeyvale town square" },
+    { "src": "images/gallery/placeholder-3.svg", "caption": "PLACEHOLDER — The Amber Peaks" },
+    { "src": "images/gallery/placeholder-4.svg", "caption": "PLACEHOLDER — Night over the farms" },
+    { "src": "images/gallery/placeholder-5.svg", "caption": "PLACEHOLDER — The Sunken Library" },
+    { "src": "images/gallery/placeholder-6.svg", "caption": "PLACEHOLDER — Community event" }
+  ]
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smilingbee</title>
+  <meta name="description" content="Smilingbee — a Minecraft server. History, lore, player records and gallery.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="#home"><img src="images/favicon.svg" alt="" width="28" height="28"><span data-site="serverName">Smilingbee</span></a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">☰</button>
+      <ul id="nav-links" class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#history">History</a></li>
+        <li><a href="#lore">Lore</a></li>
+        <li><a href="#records">Records</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-inner">
+        <h1 class="pixel" data-site="serverName">Smilingbee</h1>
+        <p class="tagline" data-site="tagline"></p>
+        <div class="welcome" id="welcome"></div>
+        <div class="highlights" id="highlights"></div>
+      </div>
+      <div class="grass-edge" aria-hidden="true"></div>
+    </section>
+
+    <section id="history" class="section">
+      <div class="container">
+        <h2 class="pixel">History</h2>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </section>
+
+    <section id="lore" class="section alt">
+      <div class="container">
+        <h2 class="pixel">Lore</h2>
+        <h3 class="sub">Stories</h3>
+        <div class="cards" id="lore-stories"></div>
+        <h3 class="sub">Places</h3>
+        <div class="cards" id="lore-places"></div>
+        <h3 class="sub">Factions</h3>
+        <div class="cards" id="lore-factions"></div>
+      </div>
+    </section>
+
+    <section id="records" class="section">
+      <div class="container">
+        <h2 class="pixel">Hall of Fame</h2>
+        <div class="records" id="records-list"></div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section alt">
+      <div class="container">
+        <h2 class="pixel">Gallery</h2>
+        <div class="gallery" id="gallery-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p data-site="footer"></p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-prev" aria-label="Previous image">‹</button>
+    <figure>
+      <img id="lb-img" alt="">
+      <figcaption id="lb-caption"></figcaption>
+    </figure>
+    <button class="lb-next" aria-label="Next image">›</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

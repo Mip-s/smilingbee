@@ -1,0 +1,11 @@
+{
+  "_note": "PLACEHOLDER: hall of fame. 'skin' is optional — a Minecraft username shows that player's head (from mc-heads.net); leave empty for a default icon.",
+  "records": [
+    { "title": "First to the End", "player": "PLACEHOLDER_Player1", "skin": "", "detail": "PLACEHOLDER — Defeated the Ender Dragon on day 12." },
+    { "title": "Master Builder", "player": "PLACEHOLDER_Player2", "skin": "", "detail": "PLACEHOLDER — Built the Great Hive." },
+    { "title": "Most Diamonds Mined", "player": "PLACEHOLDER_Player3", "skin": "", "detail": "PLACEHOLDER — 1,024 diamonds and counting." },
+    { "title": "Longest Journey", "player": "PLACEHOLDER_Player4", "skin": "", "detail": "PLACEHOLDER — Walked 50,000 blocks from spawn." },
+    { "title": "Event Champion", "player": "PLACEHOLDER_Player5", "skin": "", "detail": "PLACEHOLDER — Won the Season 2 build contest." },
+    { "title": "Friendliest Bee", "player": "PLACEHOLDER_Player6", "skin": "", "detail": "PLACEHOLDER — Voted by the community." }
+  ]
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" shape-rendering="crispEdges">
+  <rect width="1600" height="900" fill="#a9b8e8"/>
+  <rect x="1250" y="110" width="120" height="120" fill="#fff6c4" opacity=".85"/>
+  <path d="M0 560 H200 V500 H400 V440 H600 V520 H800 V460 H1000 V400 H1200 V480 H1400 V540 H1600 V900 H0Z" fill="#7a8a96" opacity=".55"/>
+  <rect y="640" width="1600" height="60" fill="#7a8a96"/>
+  <rect y="700" width="1600" height="200" fill="#7a5233"/>
+  <g fill="#634129"><rect x="80" y="740" width="40" height="40"/><rect x="360" y="800" width="40" height="40"/><rect x="700" y="760" width="40" height="40"/><rect x="1040" y="820" width="40" height="40"/><rect x="1380" y="750" width="40" height="40"/></g>
+  <text x="800" y="380" font-family="monospace" font-size="64" font-weight="bold" fill="#ffffff" text-anchor="middle" opacity=".9">PLACEHOLDER</text>
+  <text x="800" y="450" font-family="monospace" font-size="36" fill="#ffffff" text-anchor="middle" opacity=".8">Peaks — replace with a screenshot</text>
+</svg>
