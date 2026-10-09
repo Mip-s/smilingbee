@@ -35,7 +35,7 @@ export default function DiscordCard({ discord }) {
   return (
     <section className="discord-section" aria-label="Join the Discord">
       <div className="container">
-        <p className="discord-welcome">Welcome to Smilingbee! Say hi on our Discord, we'd love to see you there.</p>
+        <p className="discord-welcome">Welcome to Smilingbee! To join the server, apply through our Discord. We'd love to see you there.</p>
         <article className="discord-card">
           <div className="discord-banner" aria-hidden="true" />
           <div className="discord-body">
