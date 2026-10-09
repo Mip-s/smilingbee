@@ -48,7 +48,6 @@ export default function Councilors() {
         <div className="council-main">
           {main.map((c, i) => <Seat key={i} c={c} index={i} />)}
         </div>
-        <div className="council-divider" aria-hidden="true" />
         <div className="council-side">
           {side.map((c, i) => <Seat key={6 + i} c={c} index={6 + i} />)}
         </div>
