@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { api } from "./api.js";
-import { CouncilorsEditor, GalleryEditor, HistoryEditor, LoreEditor, SiteEditor, TextField } from "./editors.jsx";
+
+function TextField({ label, value, onChange, max, type = "text" }) {
+  return (
+    <label className="adm-field">
+      <span>{label}</span>
+      <input type={type} value={value} maxLength={max} onChange={(e) => onChange(e.target.value)} />
+    </label>
+  );
+}
 
 // The hidden admin page at /admin. Nothing on the public site links here.
 export default function Admin() {
@@ -55,11 +63,19 @@ function LoginForm({ onLogin }) {
 }
 
 function Dashboard({ user, onUser, onLogout }) {
-  const [tab, setTab] = useState("edit");
-
   async function logout() {
     await api("/api/admin/logout", { method: "POST", json: {} }).catch(() => {});
     onLogout();
+  }
+
+  // The website itself is the editor: editing starts there, with the admin tools at the bottom of each page.
+  function editWebsite() {
+    try {
+      sessionStorage.setItem("smilingbee-edit", "1");
+    } catch {
+      // Storage can be blocked; the website still opens, just not in edit mode.
+    }
+    window.location.href = "/";
   }
 
   return (
@@ -72,110 +88,21 @@ function Dashboard({ user, onUser, onLogout }) {
 
       {user.mustChangePassword && (
         <p className="adm-notice" role="status">
-          You are still using the starting password. Change it in the <b>My profile</b> tab.
+          You are still using the starting password. Change it below.
         </p>
       )}
 
-      <nav className="adm-tabs" aria-label="Admin">
-        <button className={tab === "edit" ? "on" : ""} aria-current={tab === "edit"} onClick={() => setTab("edit")}>
-          Edit website
-        </button>
-        <button className={tab === "profile" ? "on" : ""} aria-current={tab === "profile"} onClick={() => setTab("profile")}>
-          My profile
-        </button>
-      </nav>
-
-      {tab === "edit" ? <EditWebsite /> : <Profile user={user} onUser={onUser} />}
-      <p className="adm-back"><a href="/">Back to the website</a></p>
-    </div>
-  );
-}
-
-const SECTIONS = [
-  { key: "site", title: "Home & header", Editor: SiteEditor },
-  { key: "history", title: "History", Editor: HistoryEditor },
-  { key: "lore", title: "Lore", Editor: LoreEditor },
-  { key: "councilors", title: "Councilors", Editor: CouncilorsEditor },
-  { key: "gallery", title: "Gallery", Editor: GalleryEditor },
-];
-
-// Holds the saved website text and an unsaved draft for each section, so switching sections loses nothing.
-function EditWebsite() {
-  const [saved, setSaved] = useState(null);
-  const [drafts, setDrafts] = useState({});
-  const [section, setSection] = useState("site");
-  const [status, setStatus] = useState({ key: null, text: "", error: false });
-  const [loadError, setLoadError] = useState("");
-  const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    api("/api/content")
-      .then((content) => {
-        setSaved(content);
-        setDrafts(content);
-      })
-      .catch((err) => setLoadError(err.message));
-  }, []);
-
-  if (loadError) return <p className="adm-error" role="alert">{loadError}</p>;
-  if (!saved) return <p>Loading the website text…</p>;
-
-  const current = SECTIONS.find((s) => s.key === section);
-  const dirty = JSON.stringify(drafts[section]) !== JSON.stringify(saved[section]);
-
-  async function save() {
-    setSaving(true);
-    setStatus({ key: section, text: "", error: false });
-    try {
-      const { value } = await api(`/api/admin/content/${section}`, { method: "PUT", json: drafts[section] });
-      setSaved((s) => ({ ...s, [section]: value }));
-      setDrafts((d) => ({ ...d, [section]: value }));
-      setStatus({ key: section, text: "Saved. The website is updated.", error: false });
-    } catch (err) {
-      setStatus({ key: section, text: err.message, error: true });
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  function discard() {
-    setDrafts((d) => ({ ...d, [section]: saved[section] }));
-    setStatus({ key: null, text: "", error: false });
-  }
-
-  const Editor = current.Editor;
-  const message = status.key === section ? status : null;
-
-  return (
-    <div className="adm-edit">
-      <nav className="adm-sections" aria-label="Sections">
-        {SECTIONS.map((s) => (
-          <button key={s.key} className={s.key === section ? "on" : ""} onClick={() => setSection(s.key)}>
-            {s.title}
-            {JSON.stringify(drafts[s.key]) !== JSON.stringify(saved[s.key]) && <span className="adm-dot" title="Unsaved changes" />}
-          </button>
-        ))}
-      </nav>
-
-      <div className="adm-card">
-        <h2 className="adm-sub first">{current.title}</h2>
-        <Editor value={drafts[section]} onChange={(value) => setDrafts((d) => ({ ...d, [section]: value }))} />
-
-        <div className="adm-savebar">
-          <button className="adm-btn" onClick={save} disabled={!dirty || saving}>
-            {saving ? "Saving…" : "Save changes"}
-          </button>
-          <button className="adm-btn ghost" onClick={discard} disabled={!dirty || saving}>
-            Discard changes
-          </button>
-          {dirty && !saving && <span className="adm-muted">Unsaved changes</span>}
-          {message && (
-            <span className={message.error ? "adm-error" : "adm-ok"} role={message.error ? "alert" : "status"}>
-              {message.text}
-            </span>
-          )}
-        </div>
+      <div className="adm-card adm-start">
+        <h2 className="adm-sub first">Edit the website</h2>
+        <p className="adm-hint">
+          Open the website and click any text or picture to change it. Add, move and delete items with the buttons next to them.
+          Save from the bar at the bottom of the page.
+        </p>
+        <button className="adm-btn" onClick={editWebsite}>Open the website to edit</button>
       </div>
+
+      <Profile user={user} onUser={onUser} />
+      <p className="adm-back"><a href="/">Back to the website</a></p>
     </div>
   );
 }

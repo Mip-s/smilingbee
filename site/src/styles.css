@@ -215,7 +215,6 @@ main { flex: 1; }
 .adm-card { background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); padding: 20px; margin-bottom: 20px; }
 .adm-login .adm-field, .adm-card .adm-field { margin-bottom: 14px; }
 .adm-field { display: flex; flex-direction: column; gap: 6px; font-weight: 700; }
-.adm-field small, .adm-hint, .adm-muted { color: var(--ink-dim); font-weight: 400; font-size: .9rem; }
 .adm-field input, .adm-field textarea {
   font: inherit; color: var(--ink); background: var(--stone); border: 2px solid var(--dirt); border-radius: var(--radius);
   padding: 8px 10px; width: 100%;
@@ -236,27 +235,11 @@ main { flex: 1; }
 .adm-error { color: #ff9b8a; margin: 8px 0; }
 .adm-ok { color: #b8e08a; }
 .adm-notice { background: var(--dirt-dark); border-left: 6px solid var(--honey); padding: 10px 14px; margin: 0 0 16px; }
-.adm-tabs, .adm-sections { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.adm-tabs button, .adm-sections button {
   font: inherit; color: var(--ink); background: var(--dirt-dark); border: 2px solid transparent; padding: 8px 12px; cursor: pointer;
 }
-.adm-tabs button.on, .adm-sections button.on { border-color: var(--honey); color: var(--honey); }
-.adm-sections button { position: relative; }
-.adm-dot { display: inline-block; width: 8px; height: 8px; background: var(--honey); border-radius: 50%; margin-left: 6px; vertical-align: middle; }
 .adm-sub { color: var(--honey); font-size: 1.05rem; margin: 22px 0 10px; }
 .adm-sub.first { margin-top: 0; }
-.adm-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 12px; }
-.adm-item { border: 2px solid var(--dirt); padding: 12px 14px 14px; margin: 0; }
-.adm-item legend { color: var(--honey); padding: 0 6px; font-weight: 700; }
-.adm-item-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.adm-picture { margin-bottom: 14px; }
-.adm-label { display: block; font-weight: 700; margin-bottom: 6px; }
-.adm-picture-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.adm-picture-row img { width: 96px; height: 96px; object-fit: contain; background: var(--stone); border: 2px solid var(--dirt); image-rendering: pixelated; }
-.adm-nopic { width: 96px; height: 96px; display: grid; place-items: center; border: 2px dashed var(--honey); color: var(--ink-dim); font-size: .85rem; text-align: center; }
-.adm-picture-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
 .adm-savebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-top: 18px; }
-.adm-profile { display: grid; gap: 0; }
 .adm-back { margin-top: 24px; }
 .adm-login-wrap .adm-back { text-align: center; }
 @media (min-width: 820px) { .adm-profile { grid-template-columns: 1fr 1fr; gap: 20px; } .adm-profile .adm-card { margin-bottom: 0; } }
@@ -284,3 +267,51 @@ main { flex: 1; }
   .discord-body { flex-direction: column; align-items: stretch; gap: 16px; padding: 0 16px 16px; }
   .discord-go { width: 100%; }
 }
+
+/* Profile forms sit side by side on wide screens. */
+.adm-profile { display: grid; gap: 0; }
+@media (min-width: 820px) { .adm-profile { grid-template-columns: 1fr 1fr; gap: 20px; } .adm-profile .adm-card { margin-bottom: 0; } }
+
+/* ---------- In-place editing (admins only, on the public pages) ---------- */
+.edit-input { display: block; width: 100%; font: inherit; color: inherit; background: rgba(0, 0, 0, .28); border: 2px dashed var(--honey); border-radius: var(--radius); padding: 6px 8px; margin: 4px 0; text-align: inherit; }
+textarea.edit-input { resize: vertical; min-height: 4.5em; line-height: 1.5; }
+.edit-input:focus-visible { outline: 3px solid var(--honey); outline-offset: 2px; }
+.edit-input.pixel, h1.pixel .edit-input { line-height: 1.5; }
+.edit-field-row { display: flex; flex-direction: column; gap: 4px; max-width: 1100px; margin: 16px auto 0; font-size: .9rem; color: var(--ink-dim); }
+.edit-inline { flex-direction: row; align-items: center; gap: 10px; margin: 6px 0; }
+.edit-inline input[type="color"] { width: 48px; height: 32px; padding: 0; border: 2px solid var(--dirt); background: none; }
+main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
+.edit-controls { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 8px; }
+.edit-chip { font: inherit; font-size: .8rem; padding: 4px 8px; color: var(--ink); background: var(--dirt-dark); border: 2px solid var(--dirt); cursor: pointer; }
+.edit-chip:hover:not(:disabled) { border-color: var(--honey); }
+.edit-chip:disabled { opacity: .4; cursor: not-allowed; }
+.edit-chip.danger { background: #8a3a2e; }
+.edit-chip input { display: none; }
+.edit-add { display: inline-block; margin: 14px auto 0; font: inherit; font-size: .95rem; padding: 10px 16px; color: #fff; background: var(--grass); border: 0; box-shadow: var(--pixel-shadow); cursor: pointer; }
+.edit-add:disabled { opacity: .5; cursor: not-allowed; }
+.edit-add-wrap { text-align: center; }
+.edit-add-wrap .edit-add { display: inline-block; }
+.edit-add-card { display: flex; align-items: center; justify-content: center; border-style: dashed; }
+.edit-add-card .edit-add { margin: 0; }
+.edit-picture { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 100%; }
+.edit-picture img { max-width: 100%; }
+.edit-nopic { width: 160px; height: 120px; max-width: 100%; display: grid; place-items: center; border: 2px dashed var(--honey); color: var(--ink-dim); font-size: .85rem; text-align: center; padding: 6px; }
+.edit-error { color: #ff9b8a; font-size: .9rem; margin: 6px 0 0; }
+.edit-seat { cursor: default; }
+.edit-seat .edit-picture { width: 100%; }
+.gallery-edit { margin: 0; padding: 10px; background: var(--stone-2); border: 2px solid var(--dirt); display: flex; flex-direction: column; gap: 6px; }
+.gallery-edit img { width: 100%; height: 140px; object-fit: cover; }
+.gallery-edit .edit-picture img { height: auto; max-height: 180px; }
+.edit-bar-spacer { height: 76px; }
+.edit-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 16px; background: var(--dirt-dark); border-top: 4px solid var(--honey); font-size: .9rem; color: var(--ink); box-shadow: 0 -4px 0 rgba(0, 0, 0, .3); }
+.edit-bar-who { margin-right: auto; color: var(--ink-dim); }
+.edit-bar-btn { font: inherit; font-size: .85rem; padding: 7px 12px; color: var(--ink); background: var(--dirt); border: 2px solid var(--dirt-dark); cursor: pointer; }
+.edit-bar-btn:hover:not(:disabled) { border-color: var(--honey); }
+.edit-bar-btn:disabled { opacity: .5; cursor: not-allowed; }
+.edit-bar-btn.primary { background: var(--honey); color: #1d2a13; border-color: var(--honey-dark); }
+.edit-bar-link { color: var(--honey); font-size: .85rem; }
+.edit-bar-dirty { color: var(--honey); }
+.edit-bar-error { color: #ff9b8a; }
+.edit-bar-ok { color: #b8e08a; }
+@media (max-width: 720px) { .edit-bar-who { width: 100%; margin-right: 0; } }
+.hero .edit-input { background: rgba(255, 255, 255, .6); color: #1d2a33; border-color: var(--honey-dark); }
