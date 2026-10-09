@@ -11,7 +11,7 @@ site/                 React source (edit here)
     site.json         server name, tagline, welcome text, highlights, Discord link, footer
     history.json      timeline entries
     lore.json         stories, places, factions
-    councilors.json  the 7 council seats ("Vacant" marks an empty seat)
+    councilors.json  the 9 council seats ("Vacant" marks an empty seat)
     gallery.json      list of pictures
   src/pages/          one file per page
   src/EditControls.jsx  in-place editing controls (admins only)
@@ -33,7 +33,7 @@ username `MipElysium`, starting password `123`, which must be changed on first l
   paragraphs, highlights, history entries, lore stories/places/factions and gallery pictures.
   Changes are kept as drafts until **Save changes** is pressed; **Discard** throws them away.
 - **My profile** (on `/admin`): change username (3 to 16 letters, digits or underscores) and password (at least 8 characters).
-- Councilors: always seven seats. A seat is emptied with **Empty this seat**, which makes it Vacant.
+- Councilors: always nine seats. A seat is emptied with **Empty this seat**, which makes it Vacant.
 
 Where things live:
 - D1 database `smilingbee-admin`: admin accounts (passwords stored as PBKDF2 hashes), login sessions, and saved website text. The tables are created automatically on the first request.

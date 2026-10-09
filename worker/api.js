@@ -1,7 +1,7 @@
 // JSON API: public content, admin login, profile, content editing and picture uploads.
 
 import { ensureDatabase } from "./db.js";
-import { DEFAULTS, KEYS, validateContent } from "./content.js";
+import { DEFAULTS, KEYS, fillSeats, validateContent } from "./content.js";
 import {
   createSession,
   deleteSession,
@@ -68,6 +68,7 @@ async function publicContent(env) {
   const saved = Object.fromEntries(results.map((row) => [row.key, JSON.parse(row.value)]));
   const content = {};
   for (const key of KEYS) content[key] = saved[key] ?? DEFAULTS[key];
+  if (saved.councilors) content.councilors = fillSeats(saved.councilors);
   return json(content);
 }
 

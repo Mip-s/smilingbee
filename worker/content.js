@@ -16,7 +16,7 @@ const UPLOADED = /^\/media\/[a-f0-9-]{36}\.(png|jpg|webp|gif)$/;
 const SHIPPED = /^[a-z]+\/[A-Za-z0-9._-]+$/;
 const COLOR = /^#[0-9a-fA-F]{6}$/;
 const SEAT_NAME = /^[A-Za-z0-9_]{1,32}$/;
-const SEATS = 7;
+const SEATS = 9;
 
 function fail(message) {
   throw new HttpError(400, message);
@@ -142,6 +142,13 @@ const validators = {
     };
   },
 };
+
+// A saved councilor list from before the seat count changed may have fewer seats. Pad it with Vacant seats.
+export function fillSeats(councilors) {
+  const seats = [...councilors.councilors];
+  while (seats.length < SEATS) seats.push({ ...DEFAULTS.councilors.councilors.at(-1) });
+  return { ...councilors, councilors: seats };
+}
 
 export function validateContent(key, value) {
   return validators[key](value);
