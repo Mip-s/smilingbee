@@ -1,19 +1,21 @@
 /* Smilingbee — colors live here; tweak to restyle the whole site. */
 :root {
-  --honey: #c99a45;
-  --honey-dark: #a57a2e;
-  --grass: #6b8f3f;
-  --grass-dark: #46602a;
-  --dirt: #7a5a2e;
-  --dirt-dark: #4a2e14;
-  --stone: #2b3320;
-  --stone-2: #353f29;
-  --ink: #f6f0e0;
-  --ink-dim: #d4cdb8;
-  --sky-top: #8ab7c9;
-  --sky-bottom: #c4dde6;
+  --honey: #ffc83d;
+  --honey-dark: #e09b0a;
+  --grass: #5a3a12;
+  --grass-dark: #3d2510;
+  --dirt: #7a4f1d;
+  --dirt-dark: #3d2510;
+  --stone: #ffd84a;
+  --stone-2: #fff4c2;
+  --ink: #2e1c08;
+  --ink-dim: #5a4220;
+  --cream: #fff3c4;
+  --link: #8a5200;
+  --sky-top: #ffe26a;
+  --sky-bottom: #ffd23f;
   --radius: 4px;
-  --pixel-shadow: 4px 4px 0 rgba(0, 0, 0, .45);
+  --pixel-shadow: 4px 4px 0 rgba(61, 37, 16, .45);
 }
 
 * { box-sizing: border-box; }
@@ -26,7 +28,7 @@ body {
   font: 17px/1.6 "Nunito", system-ui, sans-serif;
 }
 img { max-width: 100%; display: block; }
-a { color: var(--honey); }
+a { color: var(--link); }
 
 .pixel { font-family: "Press Start 2P", monospace; letter-spacing: .02em; line-height: 1.35; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
@@ -43,7 +45,7 @@ a { color: var(--honey); }
 .brand img { image-rendering: pixelated; }
 .nav-links { list-style: none; display: flex; gap: 4px; margin: 0 0 0 auto; padding: 0; }
 .nav-links a {
-  display: block; padding: 8px 12px; color: var(--ink); text-decoration: none;
+  display: block; padding: 8px 12px; color: var(--cream); text-decoration: none;
   font-family: "Press Start 2P", monospace; font-size: 11px; border: 2px solid transparent;
 }
 .nav-links a:hover, .nav-links a:focus-visible, .nav-links a[aria-current="page"] { border-color: var(--honey); color: var(--honey); background: rgba(0, 0, 0, .2); }
@@ -132,7 +134,7 @@ main { flex: 1; }
 
 /* ---------- Cards ---------- */
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-.card { background: var(--stone); border: 3px solid #111; box-shadow: var(--pixel-shadow); overflow: hidden; }
+.card { background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); overflow: hidden; }
 .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; image-rendering: auto; border-bottom: 3px solid #111; }
 .card .body { padding: 16px; }
 .card h4 { margin: 0 0 6px; font-size: 1.05rem; }
@@ -183,7 +185,7 @@ main { flex: 1; }
 .council-side { display: flex; justify-content: center; }
 .seat { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px 8px; cursor: pointer; background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); }
 .seat:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; }
-.seat:hover { background: var(--dirt-dark); }
+.seat:hover { background: #ffe38a; }
 .seat-skin { display: block; height: clamp(120px, calc((100vh - 200px) / 2 - 70px), 260px); width: auto; aspect-ratio: 276 / 368; max-width: 100%; object-fit: contain; image-rendering: pixelated; border: 0; }
 .seat-empty { border: 2px dashed var(--honey); opacity: .5; width: calc(clamp(120px, calc((100vh - 200px) / 2 - 70px), 260px) * 276 / 368); max-width: 100%; }
 .seat h3 { font-size: .95rem; margin: 8px 0 0; }
@@ -335,3 +337,25 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
   .focus-details h2 { font-size: 1.05rem; }
 }
 @media (prefers-reduced-motion: reduce) { .focus-skin { transition: none !important; } }
+
+/* ---------- Bee theme: yellow pages, cream panels, dark brown stripes ---------- */
+.section h2, .hero h1 { color: var(--grass-dark); text-shadow: 3px 3px 0 var(--cream); }
+.hero h1 { text-shadow: 4px 4px 0 var(--cream), -2px -2px 0 var(--honey); }
+.hero { color: var(--ink); }
+.tagline, .welcome p, .highlight p { color: var(--ink); }
+.site-header, .site-footer, .edit-bar { color: var(--cream); }
+.site-footer { color: var(--cream); }
+.territory { color: var(--link); }
+.island { color: var(--cream); }
+.island .territory { color: var(--honey); }
+.focus-details h2 { color: var(--honey); }
+.focus-back { color: var(--cream); }
+.lightbox button, .lightbox figcaption { color: var(--cream); }
+.edit-bar-btn, .edit-chip { color: var(--cream); }
+.edit-bar-btn.primary, .edit-chip.primary { color: var(--ink); }
+.adm-notice { color: var(--ink); }
+.discord-welcome, .discord-name, .discord-est, .discord-counts { color: var(--ink); }
+.discord-tags li { color: var(--ink); background: var(--honey); }
+.discord-banner { background: linear-gradient(180deg, var(--honey), var(--honey-dark)); }
+.discord-card { border-color: var(--grass-dark); }
+.adm-who, .edit-bar-who, .edit-bar-ok, .edit-bar-error { color: var(--cream); }
