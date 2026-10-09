@@ -139,6 +139,7 @@ main { flex: 1; }
 .card .body { padding: 16px; }
 .card h4 { margin: 0 0 6px; font-size: 1.05rem; }
 .card p { margin: 0; color: var(--ink-dim); }
+.card .when { font-size: .85rem; font-style: italic; margin-bottom: 4px; }
 .card.faction { border-left-width: 10px; }
 
 /* ---------- Records ---------- */

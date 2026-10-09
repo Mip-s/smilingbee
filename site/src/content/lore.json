@@ -1,8 +1,9 @@
 {
-  "_note": "PLACEHOLDER: places and factions. Add or remove items freely. 'images' is a list of pictures under public/ (e.g. gallery/my-town.png); a card with several pictures shows arrows to flip between them.",
-  "places": [
+  "_note": "PLACEHOLDER: occurrences and factions. Occurrences are random or minor events with no known date, or not significant enough for History; 'when' is an optional rough time note such as 'sometime in Season 1'. 'images' is a list of pictures under public/ (e.g. gallery/my-town.png); a card with several pictures shows arrows to flip between them.",
+  "occurrences": [
     {
       "name": "PLACEHOLDER — Honeyvale",
+      "when": "",
       "text": "PLACEHOLDER — The town around spawn. What's there, who lives there.",
       "images": [
         "gallery/placeholder-2.svg"
@@ -10,6 +11,7 @@
     },
     {
       "name": "PLACEHOLDER — The Amber Peaks",
+      "when": "",
       "text": "PLACEHOLDER — A mountain range, landmark or secret base.",
       "images": [
         "gallery/placeholder-3.svg"
@@ -17,6 +19,7 @@
     },
     {
       "name": "PLACEHOLDER — The Sunken Library",
+      "when": "",
       "text": "PLACEHOLDER — A mysterious ruin or underwater build.",
       "images": [
         "gallery/placeholder-5.svg"

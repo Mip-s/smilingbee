@@ -26,21 +26,24 @@ export default function Archives() {
       <div className="container">
         <h2 className="pixel">Archives</h2>
 
-        <h3 className="sub">Places</h3>
+        <h3 className="sub">Occurrences</h3>
         <div className="cards">
-          {data.places.map((p, i) => (
+          {data.occurrences.map((o, i) => (
             <article className="card" key={i}>
-              <PictureCarousel images={p.images} alt={p.name} onChange={(images) => edit("places", (l) => patchItem(l, i, { images }))} />
+              <PictureCarousel images={o.images} alt={o.name} onChange={(images) => edit("occurrences", (l) => patchItem(l, i, { images }))} />
               <div className="body">
-                <EditText as="h4" value={p.name} max={120} label="Place name" onChange={(v) => edit("places", (l) => patchItem(l, i, { name: v }))} />
-                <EditText value={p.text} max={2000} multiline label="Place text" onChange={(v) => edit("places", (l) => patchItem(l, i, { text: v }))} />
-                {controls("places", "place", i)}
+                {(editing || o.when) && (
+                  <EditText as="p" className="when" value={o.when} max={120} label="Occurrence time note" onChange={(v) => edit("occurrences", (l) => patchItem(l, i, { when: v }))} />
+                )}
+                <EditText as="h4" value={o.name} max={120} label="Occurrence title" onChange={(v) => edit("occurrences", (l) => patchItem(l, i, { name: v }))} />
+                <EditText value={o.text} max={2000} multiline label="Occurrence text" onChange={(v) => edit("occurrences", (l) => patchItem(l, i, { text: v }))} />
+                {controls("occurrences", "occurrence", i)}
               </div>
             </article>
           ))}
         </div>
-        <AddButton disabled={data.places.length >= 50} onClick={() => edit("places", (l) => [...l, { name: "New place", text: "Describe this place.", images: [] }])}>
-          + Add a place
+        <AddButton disabled={data.occurrences.length >= 50} onClick={() => edit("occurrences", (l) => [...l, { name: "New occurrence", when: "", text: "Describe what happened.", images: [] }])}>
+          + Add an occurrence
         </AddButton>
 
         <h3 className="sub">Factions</h3>
