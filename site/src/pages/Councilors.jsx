@@ -3,8 +3,8 @@ import { Text } from "../ui.jsx";
 import { assetUrl, useContent } from "../ContentContext.jsx";
 import { EditPicture, EditText, patchItem } from "../EditControls.jsx";
 
-// The council always has 7 seats, laid out like a council table: six seats in two rows of three
-// on the left, and the seventh seat alone on the right.
+// The council always has 9 seats, laid out like a council table: eight seats in two rows of four
+// on the left, and the ninth seat alone on the right.
 // Clicking a seat moves its skin up into a large island with the details beside it; Back returns it to the table.
 // "Vacant" seats show an empty outline and no picture.
 // While an admin is editing, every seat shows its fields and can be changed in place.
@@ -13,8 +13,8 @@ export default function Councilors() {
   // The open seat: its index, where its skin sat on screen, and the element to return it to.
   const [focus, setFocus] = useState(null);
   const seats = content.councilors.councilors;
-  const main = seats.slice(0, 6);
-  const side = seats.slice(6);
+  const main = seats.slice(0, 8);
+  const side = seats.slice(8);
 
   const editSeat = (i, patch) => setSection("councilors", (c) => ({ ...c, councilors: patchItem(c.councilors, i, patch) }));
 
@@ -41,7 +41,7 @@ export default function Councilors() {
           {main.map((c, i) => renderSeat(c, i))}
         </div>
         <div className="council-side">
-          {side.map((c, i) => renderSeat(c, 6 + i))}
+          {side.map((c, i) => renderSeat(c, 8 + i))}
         </div>
       </div>
       {focused && <Island c={focused} from={focus.from} source={focus.source} onDone={() => setFocus(null)} />}

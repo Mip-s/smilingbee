@@ -1,5 +1,5 @@
 {
-  "_note": "PLACEHOLDER: the council has 7 seats. Each entry is one seat. 'picture' is a file under public/ (e.g. councilors/Name.png); leave it empty if there is none. Seats with no councilor yet are named Vacant. Replace every PLACEHOLDER value.",
+  "_note": "PLACEHOLDER: the council has 9 seats. Each entry is one seat. 'picture' is a file under public/ (e.g. councilors/Name.png); leave it empty if there is none. Seats with no councilor yet are named Vacant. Replace every PLACEHOLDER value.",
   "councilors": [
     {
       "name": "MipElysium",
@@ -36,6 +36,18 @@
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
       "picture": "councilors/DaniiKiyogami.png"
+    },
+    {
+      "name": "Vacant",
+      "territory": "—",
+      "description": "This seat is vacant.",
+      "picture": ""
+    },
+    {
+      "name": "Vacant",
+      "territory": "—",
+      "description": "This seat is vacant.",
+      "picture": ""
     },
     {
       "name": "Vacant",

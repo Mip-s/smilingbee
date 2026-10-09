@@ -178,14 +178,14 @@ main { flex: 1; }
 /* ---------- Councilors (council table: 3 x 2 on the left, 1 on the right) ---------- */
 .councilors-page { padding: 24px 16px 8px; }
 .councilors-page > h2 { max-width: 1100px; margin: 0 auto 16px; }
-.council-table { display: grid; grid-template-columns: 3fr 1fr; gap: 24px; align-items: center; max-width: 1100px; margin: 0 auto; }
-.council-main { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+.council-table { display: grid; grid-template-columns: 4fr 1fr; gap: 24px; align-items: center; max-width: 1240px; margin: 0 auto; }
+.council-main { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: start; }
 .council-side { display: flex; justify-content: center; }
 .seat { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px 8px; cursor: pointer; background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); }
 .seat:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; }
 .seat:hover { background: var(--dirt-dark); }
-.seat-skin { display: block; height: clamp(120px, calc((100vh - 360px) / 2 - 56px), 260px); width: auto; aspect-ratio: 276 / 368; max-width: 100%; object-fit: contain; image-rendering: pixelated; border: 0; }
-.seat-empty { border: 2px dashed var(--honey); opacity: .5; width: calc(clamp(120px, calc((100vh - 360px) / 2 - 56px), 260px) * 276 / 368); max-width: 100%; }
+.seat-skin { display: block; height: clamp(120px, calc((100vh - 200px) / 2 - 70px), 260px); width: auto; aspect-ratio: 276 / 368; max-width: 100%; object-fit: contain; image-rendering: pixelated; border: 0; }
+.seat-empty { border: 2px dashed var(--honey); opacity: .5; width: calc(clamp(120px, calc((100vh - 200px) / 2 - 70px), 260px) * 276 / 368); max-width: 100%; }
 .seat h3 { font-size: .95rem; margin: 8px 0 0; }
 .seat .territory { color: var(--honey); margin: 0 0 4px; font-size: .9rem; }
 .seat .seat-details { margin-top: 6px; }
@@ -198,7 +198,9 @@ main { flex: 1; }
 .join { margin: 16px 0 0; text-align: center; }
 @media (max-width: 720px) {
   .council-table { grid-template-columns: 1fr; gap: 16px; }
-  .council-main { gap: 8px; }
+  .council-main { gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .council-table > * { min-width: 0; }
+  .seat { min-width: 0; }
   .seat { padding: 8px 4px; }
   .seat-skin { height: clamp(110px, 24vh, 180px); }
   .seat h3 { font-size: .75rem; }
