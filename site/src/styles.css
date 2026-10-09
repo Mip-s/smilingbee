@@ -359,18 +359,16 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .discord-card { border-color: var(--grass-dark); }
 .adm-who, .edit-bar-who, .edit-bar-ok, .edit-bar-error { color: var(--cream); }
 
-/* ---------- Picture carousel (lore cards and history entries) ---------- */
-.carousel { position: relative; }
-.carousel-stage { position: relative; background: #fffbe8; border-bottom: 3px solid #111; }
-.carousel-stage img { width: 100%; height: clamp(180px, 40vw, 320px); aspect-ratio: auto; object-fit: contain; image-rendering: auto; border: 0; }
-.card .carousel-stage img { border-bottom: 0; }
-.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 26px; line-height: 1; color: var(--cream); background: rgba(61, 37, 16, .8); border: 2px solid var(--honey); cursor: pointer; padding: 0; }
+/* ---------- Picture carousel (realm cards and history entries) ---------- */
+/* Every picture sits in the same 16:9 frame and is cropped to fill it, so the frame hugs the picture. */
+.carousel { position: relative; max-width: 560px; }
+.carousel-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #fffbe8; border: 3px solid #111; touch-action: pan-y; }
+.carousel-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: auto; border: 0; }
+/* Arrows stay hidden until the picture is hovered or a control is focused; swiping works on phones. */
+.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; font-size: 24px; line-height: 1; color: var(--cream); background: rgba(61, 37, 16, .8); border: 2px solid var(--honey); cursor: pointer; padding: 0; opacity: 0; transition: opacity .2s; }
+.carousel-stage:hover .carousel-arrow, .carousel-stage:focus-within .carousel-arrow { opacity: 1; }
 .carousel-arrow:hover, .carousel-arrow:focus-visible { background: var(--dirt-dark); outline: 3px solid var(--honey); outline-offset: 1px; }
 .carousel-arrow.prev { left: 8px; }
 .carousel-arrow.next { right: 8px; }
-.carousel-count { position: absolute; right: 8px; bottom: 8px; padding: 2px 8px; font-size: .8rem; font-weight: 700; color: var(--cream); background: rgba(61, 37, 16, .8); }
-.carousel-empty { display: grid; place-items: center; height: clamp(180px, 40vw, 320px); color: var(--ink-dim); background: #fffbe8; border: 2px dashed var(--honey-dark); font-size: .9rem; }
+.carousel-empty { display: grid; place-items: center; aspect-ratio: 16 / 9; color: var(--ink-dim); background: #fffbe8; border: 2px dashed var(--honey-dark); font-size: .9rem; }
 .timeline .carousel { margin-top: 12px; }
-.timeline .carousel-stage { border: 3px solid #111; }
-/* Cards fill their picture frame; history entries show the whole picture. */
-.card .carousel-stage img { height: auto; aspect-ratio: 16 / 9; object-fit: cover; }

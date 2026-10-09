@@ -1,26 +1,47 @@
-// A row of pictures on one card or history entry. Visitors flip through them with the arrows.
-// While an admin is editing, the same pictures can be moved, removed and added to here.
-import { useState } from "react";
+// A row of pictures on one card or history entry. Visitors flip through them with the arrows, a swipe, or
+// let them change by themselves every few seconds. While an admin is editing, the same pictures can be
+// moved, removed and added to here, and the automatic change is paused.
+import { useEffect, useState } from "react";
 import { assetUrl, useContent } from "./ContentContext.jsx";
 import { api } from "./admin/api.js";
 import { shrinkPicture } from "./shrink.js";
 
 const PICTURE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
+const CHANGE_EVERY_MS = 3000;
+const SWIPE_PX = 40;
 
 export function PictureCarousel({ images = [], alt = "", onChange }) {
   const { editing } = useContent();
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false); // hovered or focused
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [touchX, setTouchX] = useState(null);
 
   const count = images.length;
-  if (!editing && count === 0) return null;
-
   const i = count ? Math.min(index, count - 1) : 0;
   const shown = images[i];
 
+  // Change the picture every few seconds. Stops while hovered, focused, editing, or if the visitor asked for less motion.
+  // Restarts after each manual change, so a click gets a full pause before the next automatic change.
+  useEffect(() => {
+    if (count < 2 || editing || paused) return undefined;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const timer = setInterval(() => setIndex((n) => (n + 1) % count), CHANGE_EVERY_MS);
+    return () => clearInterval(timer);
+  }, [count, editing, paused, index]);
+
+  if (!editing && count === 0) return null;
+
   function step(by) {
     setIndex((i + by + count) % count);
+  }
+
+  function swipe(endX) {
+    if (touchX === null || count < 2) return;
+    const dx = endX - touchX;
+    if (Math.abs(dx) >= SWIPE_PX) step(dx < 0 ? 1 : -1);
+    setTouchX(null);
   }
 
   function move(by) {
@@ -58,13 +79,20 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
   return (
     <div className="carousel">
       {shown ? (
-        <div className="carousel-stage">
+        <div
+          className="carousel-stage"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+          onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
+          onTouchEnd={(e) => swipe(e.changedTouches[0].clientX)}
+        >
           <img src={assetUrl(shown)} alt={count > 1 ? `${alt} (picture ${i + 1} of ${count})` : alt} loading="lazy" />
           {count > 1 && (
             <>
               <button type="button" className="carousel-arrow prev" aria-label="Previous picture" onClick={() => step(-1)}>‹</button>
               <button type="button" className="carousel-arrow next" aria-label="Next picture" onClick={() => step(1)}>›</button>
-              <span className="carousel-count" aria-hidden="true">{i + 1} / {count}</span>
             </>
           )}
         </div>
