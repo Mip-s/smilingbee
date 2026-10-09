@@ -1,17 +1,17 @@
-import data from "../content/councillors.json";
+import data from "../content/councilors.json";
 import { Text } from "../ui.jsx";
 
 // The council always has 7 seats. Each seat is one full-width card: details on the left, full skin on the right.
 // "Vacant" marks an empty seat, which has no picture.
-export default function Councillors() {
+export default function Councilors() {
   return (
-    <section className="section page councillors-page">
-      <h2 className="pixel">Councillors</h2>
-      <div className="councillor-list">
-        {data.councillors.map((c, i) => {
+    <section className="section page councilors-page">
+      <h2 className="pixel">Councilors</h2>
+      <div className="councilor-list">
+        {data.councilors.map((c, i) => {
           const vacant = c.name === "Vacant";
           return (
-            <article className="card councillor" key={i}>
+            <article className="card councilor" key={i}>
               <div className="details">
                 <Text value={c.name} as="h3" className={vacant ? "vacant" : undefined} />
                 <Text value={c.territory} className="territory" />
@@ -19,7 +19,7 @@ export default function Councillors() {
               </div>
               {c.picture && (
                 <figure className="skin">
-                  <img src={`${import.meta.env.BASE_URL}councillors/${c.picture}`} alt={`${c.name} full skin`} loading="lazy" />
+                  <img src={`${import.meta.env.BASE_URL}councilors/${c.picture}`} alt={`${c.name} full skin`} loading="lazy" />
                 </figure>
               )}
             </article>

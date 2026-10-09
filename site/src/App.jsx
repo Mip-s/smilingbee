@@ -4,7 +4,7 @@ import { Text } from "./ui.jsx";
 import Home from "./pages/Home.jsx";
 import History from "./pages/History.jsx";
 import Lore from "./pages/Lore.jsx";
-import Councillors from "./pages/Councillors.jsx";
+import Councilors from "./pages/Councilors.jsx";
 import Gallery from "./pages/Gallery.jsx";
 
 // Each page is picked from the URL path (/history, /lore, ...). Unknown paths show a short message.
@@ -12,7 +12,7 @@ const PAGES = {
   "": { title: "Home", Component: Home },
   history: { title: "History", Component: History },
   lore: { title: "Lore", Component: Lore },
-  councillors: { title: "Councillors", Component: Councillors },
+  councilors: { title: "Councilors", Component: Councilors },
   gallery: { title: "Gallery", Component: Gallery },
 };
 

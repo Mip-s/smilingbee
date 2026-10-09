@@ -1,6 +1,6 @@
 # Smilingbee — server website
 
-The website for the Smilingbee Minecraft server: Home, History, Lore, Councillors and Gallery.
+The website for the Smilingbee Minecraft server: Home, History, Lore, Councilors and Gallery.
 Built with Vite + React. The site lives in `site/`.
 
 ## Folder layout
@@ -11,10 +11,10 @@ site/                 React source (edit here)
     site.json         server name, tagline, welcome text, highlights, Discord link, footer
     history.json      timeline entries
     lore.json         stories, places, factions
-    councillors.json  the 7 council seats ("Vacant" marks an empty seat)
+    councilors.json  the 7 council seats ("Vacant" marks an empty seat)
     gallery.json      list of pictures
   src/pages/          one file per page
-  public/             pictures and images served as-is (councillors/, gallery/, images/)
+  public/             pictures and images served as-is (councilors/, gallery/, images/)
 dist/                 built site (generated; this is what the Worker serves)
 wrangler.jsonc        Cloudflare Worker config (serves dist/)
 ```
