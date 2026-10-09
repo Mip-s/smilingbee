@@ -1,17 +1,46 @@
 {
-  "_note": "PLACEHOLDER: three groups — stories, places and factions. Add or remove items freely. 'image' is optional, a path under public/ (e.g. gallery/my-town.png).",
-  "stories": [
-    { "title": "PLACEHOLDER — The Legend of the Golden Bee", "text": "PLACEHOLDER — A short in-world tale players tell around the campfire." },
-    { "title": "PLACEHOLDER — The Night the Creepers Came", "text": "PLACEHOLDER — A memorable event retold as a story." }
-  ],
+  "_note": "PLACEHOLDER: places and factions. Add or remove items freely. 'images' is a list of pictures under public/ (e.g. gallery/my-town.png); a card with several pictures shows arrows to flip between them.",
   "places": [
-    { "name": "PLACEHOLDER — Honeyvale", "text": "PLACEHOLDER — The town around spawn. What's there, who lives there.", "image": "gallery/placeholder-2.svg" },
-    { "name": "PLACEHOLDER — The Amber Peaks", "text": "PLACEHOLDER — A mountain range, landmark or secret base.", "image": "gallery/placeholder-3.svg" },
-    { "name": "PLACEHOLDER — The Sunken Library", "text": "PLACEHOLDER — A mysterious ruin or underwater build.", "image": "gallery/placeholder-5.svg" }
+    {
+      "name": "PLACEHOLDER — Honeyvale",
+      "text": "PLACEHOLDER — The town around spawn. What's there, who lives there.",
+      "images": [
+        "gallery/placeholder-2.svg"
+      ]
+    },
+    {
+      "name": "PLACEHOLDER — The Amber Peaks",
+      "text": "PLACEHOLDER — A mountain range, landmark or secret base.",
+      "images": [
+        "gallery/placeholder-3.svg"
+      ]
+    },
+    {
+      "name": "PLACEHOLDER — The Sunken Library",
+      "text": "PLACEHOLDER — A mysterious ruin or underwater build.",
+      "images": [
+        "gallery/placeholder-5.svg"
+      ]
+    }
   ],
   "factions": [
-    { "name": "PLACEHOLDER — The Keepers of the Hive", "color": "#f5b82e", "text": "PLACEHOLDER — Who they are, what they stand for, notable members." },
-    { "name": "PLACEHOLDER — The Redstone Guild", "color": "#d9473b", "text": "PLACEHOLDER — Engineers and inventors of the server." },
-    { "name": "PLACEHOLDER — The Wanderers", "color": "#4a9fd8", "text": "PLACEHOLDER — Explorers who map the far lands." }
+    {
+      "name": "PLACEHOLDER — The Keepers of the Hive",
+      "color": "#f5b82e",
+      "text": "PLACEHOLDER — Who they are, what they stand for, notable members.",
+      "images": []
+    },
+    {
+      "name": "PLACEHOLDER — The Redstone Guild",
+      "color": "#d9473b",
+      "text": "PLACEHOLDER — Engineers and inventors of the server.",
+      "images": []
+    },
+    {
+      "name": "PLACEHOLDER — The Wanderers",
+      "color": "#4a9fd8",
+      "text": "PLACEHOLDER — Explorers who map the far lands.",
+      "images": []
+    }
   ]
 }

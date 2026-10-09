@@ -51,6 +51,13 @@ function picture(value, where, { required = false } = {}) {
   return path;
 }
 
+const MAX_PICTURES = 10;
+
+// The pictures on one card or history entry. Each must be a real picture path.
+function pictures(value, where) {
+  return list(value ?? [], `${where} pictures`, MAX_PICTURES, (p, w) => picture(p, w, { required: true }));
+}
+
 const validators = {
   site(value) {
     const s = asObject(value, "Site");
@@ -82,6 +89,7 @@ const validators = {
           date: text(e.date, `${w} date`, { max: 60 }),
           title: text(e.title, `${w} title`, { max: 120, min: 1 }),
           text: text(e.text, `${w} text`, { max: 2000 }),
+          images: pictures(e.images, w),
         };
       }),
     };
@@ -90,16 +98,12 @@ const validators = {
   lore(value) {
     const l = asObject(value, "Lore");
     return {
-      stories: list(l.stories, "Story", 50, (s, w) => {
-        s = asObject(s, w);
-        return { title: text(s.title, `${w} title`, { max: 120, min: 1 }), text: text(s.text, `${w} text`, { max: 2000 }) };
-      }),
       places: list(l.places, "Place", 50, (p, w) => {
         p = asObject(p, w);
         return {
           name: text(p.name, `${w} name`, { max: 120, min: 1 }),
           text: text(p.text, `${w} text`, { max: 2000 }),
-          image: picture(p.image, `${w} picture`),
+          images: pictures(p.images, w),
         };
       }),
       factions: list(l.factions, "Faction", 50, (f, w) => {
@@ -110,6 +114,7 @@ const validators = {
           name: text(f.name, `${w} name`, { max: 120, min: 1 }),
           color,
           text: text(f.text, `${w} text`, { max: 2000 }),
+          images: pictures(f.images, w),
         };
       }),
     };
@@ -148,6 +153,22 @@ export function fillSeats(councilors) {
   const seats = [...councilors.councilors];
   while (seats.length < SEATS) seats.push({ ...DEFAULTS.councilors.councilors.at(-1) });
   return { ...councilors, councilors: seats };
+}
+
+// Saved text written before the last content change is brought up to the current shape when it is read:
+// lone "image" fields become "images" lists, and the old lore stories are dropped.
+export function upgradeSaved(key, value) {
+  if (key === "lore") {
+    return {
+      places: value.places.map((p) => ({ name: p.name, text: p.text, images: p.images ?? (p.image ? [p.image] : []) })),
+      factions: value.factions.map((f) => ({ name: f.name, color: f.color, text: f.text, images: f.images ?? [] })),
+    };
+  }
+  if (key === "history") {
+    return { entries: value.entries.map((e) => ({ ...e, images: e.images ?? [] })) };
+  }
+  if (key === "councilors") return fillSeats(value);
+  return value;
 }
 
 export function validateContent(key, value) {

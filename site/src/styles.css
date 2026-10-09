@@ -358,3 +358,17 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .discord-banner { background: linear-gradient(180deg, var(--honey), var(--honey-dark)); }
 .discord-card { border-color: var(--grass-dark); }
 .adm-who, .edit-bar-who, .edit-bar-ok, .edit-bar-error { color: var(--cream); }
+
+/* ---------- Picture carousel (lore cards and history entries) ---------- */
+.carousel { position: relative; }
+.carousel-stage { position: relative; background: #fffbe8; border-bottom: 3px solid #111; }
+.carousel-stage img { width: 100%; height: clamp(180px, 40vw, 320px); aspect-ratio: auto; object-fit: contain; image-rendering: auto; border: 0; }
+.card .carousel-stage img { border-bottom: 0; }
+.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 26px; line-height: 1; color: var(--cream); background: rgba(61, 37, 16, .8); border: 2px solid var(--honey); cursor: pointer; padding: 0; }
+.carousel-arrow:hover, .carousel-arrow:focus-visible { background: var(--dirt-dark); outline: 3px solid var(--honey); outline-offset: 1px; }
+.carousel-arrow.prev { left: 8px; }
+.carousel-arrow.next { right: 8px; }
+.carousel-count { position: absolute; right: 8px; bottom: 8px; padding: 2px 8px; font-size: .8rem; font-weight: 700; color: var(--cream); background: rgba(61, 37, 16, .8); }
+.carousel-empty { display: grid; place-items: center; height: clamp(180px, 40vw, 320px); color: var(--ink-dim); background: #fffbe8; border: 2px dashed var(--honey-dark); font-size: .9rem; }
+.timeline .carousel { margin-top: 12px; }
+.timeline .carousel-stage { border: 3px solid #111; }

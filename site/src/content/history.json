@@ -1,9 +1,29 @@
 {
-  "_note": "PLACEHOLDER: timeline entries, shown top to bottom in the order listed. 'date' is free text (e.g. 'Season 1', 'March 2024').",
+  "_note": "PLACEHOLDER: timeline entries, shown top to bottom in the order listed. 'date' is free text (e.g. 'Season 1', 'March 2024'). 'images' is an optional list of pictures under public/.",
   "entries": [
-    { "date": "PLACEHOLDER — Season 1", "title": "The First Spawn", "text": "PLACEHOLDER — Describe how the server began, who joined first and what the world looked like." },
-    { "date": "PLACEHOLDER — Season 1", "title": "The Great Hive is Built", "text": "PLACEHOLDER — A major build or community project that defined the early days." },
-    { "date": "PLACEHOLDER — Season 2", "title": "New World, New Map", "text": "PLACEHOLDER — A map reset, update, or big change to the server." },
-    { "date": "PLACEHOLDER — Today", "title": "Where We Are Now", "text": "PLACEHOLDER — What's happening on the server right now." }
+    {
+      "date": "PLACEHOLDER — Season 1",
+      "title": "The First Spawn",
+      "text": "PLACEHOLDER — Describe how the server began, who joined first and what the world looked like.",
+      "images": []
+    },
+    {
+      "date": "PLACEHOLDER — Season 1",
+      "title": "The Great Hive is Built",
+      "text": "PLACEHOLDER — A major build or community project that defined the early days.",
+      "images": []
+    },
+    {
+      "date": "PLACEHOLDER — Season 2",
+      "title": "New World, New Map",
+      "text": "PLACEHOLDER — A map reset, update, or big change to the server.",
+      "images": []
+    },
+    {
+      "date": "PLACEHOLDER — Today",
+      "title": "Where We Are Now",
+      "text": "PLACEHOLDER — What's happening on the server right now.",
+      "images": []
+    }
   ]
 }

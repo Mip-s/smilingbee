@@ -10,7 +10,7 @@ site/                 React source (edit here)
   src/content/        ← ALL the text lives here (JSON)
     site.json         server name, tagline, welcome text, highlights, Discord link, footer
     history.json      timeline entries
-    lore.json         stories, places, factions
+    lore.json         places and factions (each can hold several pictures)
     councilors.json  the 9 council seats ("Vacant" marks an empty seat)
     gallery.json      list of pictures
   src/pages/          one file per page
@@ -30,7 +30,7 @@ username `MipElysium`, starting password `123`, which must be changed on first l
 - **Editing happens on the real pages.** After logging in at `/admin`, press **Open the website to edit**
   (or open the site while logged in and press **Edit this website** in the bar at the bottom). Click any
   text or picture to change it. Use the ▲ ▼ and Delete buttons on items, and the **+ Add** buttons for new
-  paragraphs, highlights, history entries, lore stories/places/factions and gallery pictures.
+  paragraphs, highlights, history entries, lore places and factions, history entries and gallery pictures. Cards and entries can hold several pictures; visitors flip through them with the arrows.
   Changes are kept as drafts until **Save changes** is pressed; **Discard** throws them away.
 - **My profile** (on `/admin`): change username (3 to 16 letters, digits or underscores) and password (at least 8 characters).
 - Councilors: always nine seats. A seat is emptied with **Empty this seat**, which makes it Vacant.

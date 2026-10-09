@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import site from "./content/site.json";
 import history from "./content/history.json";
 import lore from "./content/lore.json";
@@ -17,6 +17,25 @@ export const SECTION_NAMES = {
 };
 const SECTION_KEYS = Object.keys(SECTION_NAMES);
 const EDIT_FLAG = "smilingbee-edit";
+const DRAFT_KEY = "smilingbee-drafts";
+
+// Unsaved drafts are kept for this browser tab only, so they survive moving between pages until saved or discarded.
+function readDrafts() {
+  try {
+    return JSON.parse(sessionStorage.getItem(DRAFT_KEY)) || null;
+  } catch {
+    return null;
+  }
+}
+
+function writeDrafts(dirty) {
+  try {
+    if (Object.keys(dirty).length) sessionStorage.setItem(DRAFT_KEY, JSON.stringify(dirty));
+    else sessionStorage.removeItem(DRAFT_KEY);
+  } catch {
+    // Storage can be blocked; the drafts then last only until the page is left.
+  }
+}
 
 // Remembers, for this browser tab only, that the admin switched editing on.
 function readEditFlag() {
@@ -71,16 +90,19 @@ export function ContentProvider({ children }) {
 
   const dirtyKeys = saved && drafts ? SECTION_KEYS.filter((k) => JSON.stringify(drafts[k]) !== JSON.stringify(saved[k])) : [];
 
-  // Warn before leaving the page with unsaved changes.
+  // Bring back drafts left from the last page (once, after the saved text has loaded), and keep the current ones.
+  const restored = useRef(false);
   useEffect(() => {
-    if (dirtyKeys.length === 0) return;
-    const warn = (e) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-    window.addEventListener("beforeunload", warn);
-    return () => window.removeEventListener("beforeunload", warn);
-  }, [dirtyKeys.length]);
+    if (!saved || restored.current) return;
+    restored.current = true;
+    const stored = readDrafts();
+    if (stored) setDrafts((d) => ({ ...d, ...stored }));
+  }, [saved]);
+
+  useEffect(() => {
+    if (!saved || !drafts) return;
+    writeDrafts(Object.fromEntries(dirtyKeys.map((k) => [k, drafts[k]])));
+  }, [drafts, saved]);
 
   function setSection(key, change) {
     setDrafts((d) => ({ ...d, [key]: typeof change === "function" ? change(d[key]) : change }));
@@ -119,6 +141,7 @@ export function ContentProvider({ children }) {
     if (dirtyKeys.length && !window.confirm("Discard your unsaved changes and log out?")) return;
     await api("/api/admin/logout", { method: "POST", json: {} }).catch(() => {});
     writeEditFlag(false);
+    writeDrafts({});
     window.location.href = "/";
   }
 
