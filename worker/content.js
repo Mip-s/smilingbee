@@ -143,6 +143,13 @@ const validators = {
   },
 };
 
+// A saved councilor list from before the seat count changed may have fewer seats. Pad it with Vacant seats.
+export function fillSeats(councilors) {
+  const seats = [...councilors.councilors];
+  while (seats.length < SEATS) seats.push({ ...DEFAULTS.councilors.councilors.at(-1) });
+  return { ...councilors, councilors: seats };
+}
+
 export function validateContent(key, value) {
   return validators[key](value);
 }

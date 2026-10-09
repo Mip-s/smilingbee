@@ -11,7 +11,7 @@ site/                 React source (edit here)
     site.json         server name, tagline, welcome text, highlights, Discord link, footer
     history.json      timeline entries
     lore.json         stories, places, factions
-    councilors.json  the 7 council seats ("Vacant" marks an empty seat)
+    councilors.json  the 9 council seats ("Vacant" marks an empty seat)
     gallery.json      list of pictures
   src/pages/          one file per page
   src/EditControls.jsx  in-place editing controls (admins only)
