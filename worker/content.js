@@ -98,7 +98,7 @@ const validators = {
   lore(value) {
     const l = asObject(value, "Lore");
     return {
-      occurrences: list(l.occurrences, "Occurrence", 50, (o, w) => {
+      moments: list(l.moments, "Moment", 50, (o, w) => {
         o = asObject(o, w);
         return {
           name: text(o.name, `${w} name`, { max: 120, min: 1 }),
@@ -157,12 +157,12 @@ export function fillSeats(councilors) {
 }
 
 // Saved text written before the last content change is brought up to the current shape when it is read:
-// lone "image" fields become "images" lists, the old lore stories are dropped, and "places" become "occurrences".
+// lone "image" fields become "images" lists, the old lore stories are dropped, and older "places" and "occurrences" become "moments".
 export function upgradeSaved(key, value) {
   if (key === "lore") {
-    const occurrences = value.occurrences ?? value.places ?? [];
+    const moments = value.moments ?? value.occurrences ?? value.places ?? [];
     return {
-      occurrences: occurrences.map((o) => ({ name: o.name, when: o.when ?? "", text: o.text, images: o.images ?? (o.image ? [o.image] : []) })),
+      moments: moments.map((o) => ({ name: o.name, when: o.when ?? "", text: o.text, images: o.images ?? (o.image ? [o.image] : []) })),
       factions: value.factions.map((f) => ({ name: f.name, color: f.color, text: f.text, images: f.images ?? [] })),
     };
   }

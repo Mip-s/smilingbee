@@ -1,6 +1,6 @@
 {
-  "_note": "PLACEHOLDER: occurrences and factions. Occurrences are random or minor events with no known date, or not significant enough for History; 'when' is an optional rough time note such as 'sometime in Season 1'. 'images' is a list of pictures under public/ (e.g. gallery/my-town.png); a card with several pictures shows arrows to flip between them.",
-  "occurrences": [
+  "_note": "PLACEHOLDER: moments and factions. Moments are random or minor events with no known date, or not significant enough for History; 'when' is an optional rough time note such as 'sometime in Season 1'. 'images' is a list of pictures under public/ (e.g. gallery/my-town.png); a card with several pictures shows arrows to flip between them.",
+  "moments": [
     {
       "name": "PLACEHOLDER — Honeyvale",
       "when": "",

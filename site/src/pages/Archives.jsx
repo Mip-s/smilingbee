@@ -26,24 +26,24 @@ export default function Archives() {
       <div className="container">
         <h2 className="pixel">Archives</h2>
 
-        <h3 className="sub">Occurrences</h3>
+        <h3 className="sub">Moments</h3>
         <div className="cards">
-          {data.occurrences.map((o, i) => (
+          {data.moments.map((o, i) => (
             <article className="card" key={i}>
-              <PictureCarousel images={o.images} alt={o.name} onChange={(images) => edit("occurrences", (l) => patchItem(l, i, { images }))} />
+              <PictureCarousel images={o.images} alt={o.name} onChange={(images) => edit("moments", (l) => patchItem(l, i, { images }))} />
               <div className="body">
                 {(editing || o.when) && (
-                  <EditText as="p" className="when" value={o.when} max={120} label="Occurrence time note" onChange={(v) => edit("occurrences", (l) => patchItem(l, i, { when: v }))} />
+                  <EditText as="p" className="when" value={o.when} max={120} label="Moment time note" onChange={(v) => edit("moments", (l) => patchItem(l, i, { when: v }))} />
                 )}
-                <EditText as="h4" value={o.name} max={120} label="Occurrence title" onChange={(v) => edit("occurrences", (l) => patchItem(l, i, { name: v }))} />
-                <EditText value={o.text} max={2000} multiline label="Occurrence text" onChange={(v) => edit("occurrences", (l) => patchItem(l, i, { text: v }))} />
-                {controls("occurrences", "occurrence", i)}
+                <EditText as="h4" value={o.name} max={120} label="Moment title" onChange={(v) => edit("moments", (l) => patchItem(l, i, { name: v }))} />
+                <EditText value={o.text} max={2000} multiline label="Moment text" onChange={(v) => edit("moments", (l) => patchItem(l, i, { text: v }))} />
+                {controls("moments", "moment", i)}
               </div>
             </article>
           ))}
         </div>
-        <AddButton disabled={data.occurrences.length >= 50} onClick={() => edit("occurrences", (l) => [...l, { name: "New occurrence", when: "", text: "Describe what happened.", images: [] }])}>
-          + Add an occurrence
+        <AddButton disabled={data.moments.length >= 50} onClick={() => edit("moments", (l) => [...l, { name: "New moment", when: "", text: "Describe what happened.", images: [] }])}>
+          + Add a moment
         </AddButton>
 
         <h3 className="sub">Factions</h3>
