@@ -151,8 +151,8 @@ main { flex: 1; }
 
 /* ---------- Gallery ---------- */
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
-.gallery button { padding: 0; border: 3px solid #111; background: #111; cursor: zoom-in; box-shadow: var(--pixel-shadow); transition: transform .1s; }
-.gallery button:hover, .gallery button:focus-visible { transform: translate(-2px, -2px); outline: 3px solid var(--honey); }
+.gallery > button { padding: 0; border: 3px solid #111; background: #111; cursor: zoom-in; box-shadow: var(--pixel-shadow); transition: transform .1s; }
+.gallery > button:hover, .gallery > button:focus-visible { transform: translate(-2px, -2px); outline: 3px solid var(--honey); }
 .gallery img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 
 /* ---------- Lightbox ---------- */
@@ -276,7 +276,7 @@ main { flex: 1; }
 @media (min-width: 820px) { .adm-profile { grid-template-columns: 1fr 1fr; gap: 20px; } .adm-profile .adm-card { margin-bottom: 0; } }
 
 /* ---------- In-place editing (admins only, on the public pages) ---------- */
-.edit-input { display: block; width: 100%; font: inherit; color: inherit; background: rgba(0, 0, 0, .28); border: 2px dashed var(--honey); border-radius: var(--radius); padding: 6px 8px; margin: 4px 0; text-align: inherit; }
+.edit-input { display: block; width: 100%; font: inherit; color: var(--ink); background: #fffbe8; border: 2px dashed var(--honey-dark); border-radius: var(--radius); padding: 6px 8px; margin: 4px 0; text-align: inherit; }
 textarea.edit-input { resize: vertical; min-height: 4.5em; line-height: 1.5; }
 .edit-input:focus-visible { outline: 3px solid var(--honey); outline-offset: 2px; }
 .edit-input.pixel, h1.pixel .edit-input { line-height: 1.5; }
@@ -285,10 +285,10 @@ textarea.edit-input { resize: vertical; min-height: 4.5em; line-height: 1.5; }
 .edit-inline input[type="color"] { width: 48px; height: 32px; padding: 0; border: 2px solid var(--dirt); background: none; }
 main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .edit-controls { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 8px; }
-.edit-chip { font: inherit; font-size: .8rem; padding: 4px 8px; color: var(--ink); background: var(--dirt-dark); border: 2px solid var(--dirt); cursor: pointer; }
-.edit-chip:hover:not(:disabled) { border-color: var(--honey); }
-.edit-chip:disabled { opacity: .4; cursor: not-allowed; }
-.edit-chip.danger { background: #8a3a2e; }
+.edit-chip { font: inherit; font-size: .85rem; font-weight: 700; line-height: 1.2; min-width: 96px; text-align: center; padding: 6px 10px; color: var(--ink); background: #fff8dc; border: 2px solid var(--dirt); box-shadow: 2px 2px 0 rgba(61, 37, 16, .35); cursor: pointer; }
+.edit-chip:hover:not(:disabled) { background: #fff; border-color: var(--honey-dark); }
+.edit-chip:disabled { color: #9a8a6a; border-color: #cbbb94; box-shadow: none; cursor: not-allowed; }
+.edit-chip.danger { color: #7a1608; border-color: #7a1608; background: #fff1e8; }
 .edit-chip input { display: none; }
 .edit-add { display: inline-block; margin: 14px auto 0; font: inherit; font-size: .95rem; padding: 10px 16px; color: #fff; background: var(--grass); border: 0; box-shadow: var(--pixel-shadow); cursor: pointer; }
 .edit-add:disabled { opacity: .5; cursor: not-allowed; }
@@ -299,7 +299,7 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .edit-picture { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 100%; }
 .edit-picture img { max-width: 100%; }
 .edit-nopic { width: 160px; height: 120px; max-width: 100%; display: grid; place-items: center; border: 2px dashed var(--honey); color: var(--ink-dim); font-size: .85rem; text-align: center; padding: 6px; }
-.edit-error { color: #ff9b8a; font-size: .9rem; margin: 6px 0 0; }
+.edit-error { display: inline-block; color: #6e1206; background: #fff1e8; border: 2px solid #7a1608; font-size: .9rem; font-weight: 700; padding: 4px 8px; margin: 6px 0 0; }
 .edit-seat { cursor: default; }
 .edit-seat .edit-picture { width: 100%; }
 .gallery-edit { margin: 0; padding: 10px; background: var(--stone-2); border: 2px solid var(--dirt); display: flex; flex-direction: column; gap: 6px; }
@@ -317,7 +317,6 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .edit-bar-error { color: #ff9b8a; }
 .edit-bar-ok { color: #b8e08a; }
 @media (max-width: 720px) { .edit-bar-who { width: 100%; margin-right: 0; } }
-.hero .edit-input { background: rgba(255, 255, 255, .6); color: #1d2a33; border-color: var(--honey-dark); }
 
 /* ---------- Councilor island (opened from a seat) ---------- */
 .focus-backdrop { position: fixed; inset: 0; z-index: 200; background: var(--stone); display: flex; align-items: center; justify-content: center; padding: 16px; }
@@ -351,8 +350,8 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .focus-details h2 { color: var(--honey); }
 .focus-back { color: var(--cream); }
 .lightbox button, .lightbox figcaption { color: var(--cream); }
-.edit-bar-btn, .edit-chip { color: var(--cream); }
-.edit-bar-btn.primary, .edit-chip.primary { color: var(--ink); }
+.edit-bar-btn { color: var(--cream); }
+.edit-bar-btn.primary { color: var(--ink); }
 .adm-notice { color: var(--ink); }
 .discord-welcome, .discord-name, .discord-est, .discord-counts { color: var(--ink); }
 .discord-tags li { color: var(--ink); background: var(--honey); }

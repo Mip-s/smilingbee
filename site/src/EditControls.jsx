@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useContent, assetUrl, SECTION_NAMES } from "./ContentContext.jsx";
 import { api } from "./admin/api.js";
+import { shrinkPicture } from "./shrink.js";
 import { Text } from "./ui.jsx";
 
 const PICTURE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
@@ -38,7 +39,7 @@ export function EditPicture({ src, onChange, alt = "", className = "", imgClassN
     setBusy(true);
     setError("");
     try {
-      const { url } = await api("/api/admin/media", { method: "POST", file });
+      const { url } = await api("/api/admin/media", { method: "POST", file: await shrinkPicture(file) });
       onChange(url);
     } catch (err) {
       setError(err.message);
@@ -118,7 +119,7 @@ export function AddPicture({ label, onAdd }) {
     setBusy(true);
     setError("");
     try {
-      const { url } = await api("/api/admin/media", { method: "POST", file });
+      const { url } = await api("/api/admin/media", { method: "POST", file: await shrinkPicture(file) });
       onAdd(url);
     } catch (err) {
       setError(err.message);
