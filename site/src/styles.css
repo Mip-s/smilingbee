@@ -1,19 +1,19 @@
 /* Smilingbee — colors live here; tweak to restyle the whole site. */
 :root {
-  --honey: #ffc83d;
-  --honey-dark: #e09b0a;
+  --honey: #d9a441;
+  --honey-dark: #b07d22;
   --grass: #5a3a12;
   --grass-dark: #3d2510;
   --dirt: #7a4f1d;
   --dirt-dark: #3d2510;
-  --stone: #ffd84a;
-  --stone-2: #fff4c2;
+  --stone: #c9a24f;
+  --stone-2: #f5ecd2;
   --ink: #2e1c08;
   --ink-dim: #5a4220;
   --cream: #fff3c4;
   --link: #8a5200;
-  --sky-top: #ffe26a;
-  --sky-bottom: #ffd23f;
+  --sky-top: #d8b463;
+  --sky-bottom: #c9a24f;
   --radius: 4px;
   --pixel-shadow: 4px 4px 0 rgba(61, 37, 16, .45);
 }
@@ -185,7 +185,7 @@ main { flex: 1; }
 .council-side { display: flex; justify-content: center; }
 .seat { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px 8px; cursor: pointer; background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); }
 .seat:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; }
-.seat:hover { background: #ffe38a; }
+.seat:hover { background: #efe3bd; }
 .seat-skin { display: block; height: clamp(120px, calc((100vh - 200px) / 2 - 70px), 260px); width: auto; aspect-ratio: 276 / 368; max-width: 100%; object-fit: contain; image-rendering: pixelated; border: 0; }
 .seat-empty { border: 2px dashed var(--honey); opacity: .5; width: calc(clamp(120px, calc((100vh - 200px) / 2 - 70px), 260px) * 276 / 368); max-width: 100%; }
 .seat h3 { font-size: .95rem; margin: 8px 0 0; }
