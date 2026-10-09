@@ -1,13 +1,13 @@
 {
-  "_note": "PLACEHOLDER: three groups — stories, places and factions. Add or remove items freely. 'image' is optional.",
+  "_note": "PLACEHOLDER: three groups — stories, places and factions. Add or remove items freely. 'image' is optional, a path under public/ (e.g. gallery/my-town.png).",
   "stories": [
     { "title": "PLACEHOLDER — The Legend of the Golden Bee", "text": "PLACEHOLDER — A short in-world tale players tell around the campfire." },
     { "title": "PLACEHOLDER — The Night the Creepers Came", "text": "PLACEHOLDER — A memorable event retold as a story." }
   ],
   "places": [
-    { "name": "PLACEHOLDER — Honeyvale", "text": "PLACEHOLDER — The town around spawn. What's there, who lives there.", "image": "images/gallery/placeholder-2.svg" },
-    { "name": "PLACEHOLDER — The Amber Peaks", "text": "PLACEHOLDER — A mountain range, landmark or secret base.", "image": "images/gallery/placeholder-3.svg" },
-    { "name": "PLACEHOLDER — The Sunken Library", "text": "PLACEHOLDER — A mysterious ruin or underwater build.", "image": "images/gallery/placeholder-5.svg" }
+    { "name": "PLACEHOLDER — Honeyvale", "text": "PLACEHOLDER — The town around spawn. What's there, who lives there.", "image": "gallery/placeholder-2.svg" },
+    { "name": "PLACEHOLDER — The Amber Peaks", "text": "PLACEHOLDER — A mountain range, landmark or secret base.", "image": "gallery/placeholder-3.svg" },
+    { "name": "PLACEHOLDER — The Sunken Library", "text": "PLACEHOLDER — A mysterious ruin or underwater build.", "image": "gallery/placeholder-5.svg" }
   ],
   "factions": [
     { "name": "PLACEHOLDER — The Keepers of the Hive", "color": "#f5b82e", "text": "PLACEHOLDER — Who they are, what they stand for, notable members." },

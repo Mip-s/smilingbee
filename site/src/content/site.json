@@ -1,5 +1,5 @@
 {
-  "_note": "PLACEHOLDER: edit the text below. This file controls the Home section and the page title.",
+  "_note": "PLACEHOLDER: edit the text below. This file controls the Home page, the header and the footer.",
   "serverName": "Smilingbee",
   "tagline": "PLACEHOLDER — a cozy survival world built together, one block at a time.",
   "welcome": [
@@ -11,5 +11,6 @@
     { "icon": "🏰", "title": "PLACEHOLDER Highlight", "text": "Short line about builds, towns or projects." },
     { "icon": "📜", "title": "PLACEHOLDER Highlight", "text": "Short line about lore, events or community." }
   ],
+  "discord": "https://discord.gg/6xBfGfckma",
   "footer": "PLACEHOLDER — Smilingbee is a fan-run server and is not affiliated with Mojang or Microsoft."
 }

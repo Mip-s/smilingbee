@@ -1,17 +1,17 @@
 /* Smilingbee — colors live here; tweak to restyle the whole site. */
 :root {
-  --honey: #e2b352;
-  --honey-dark: #b8862c;
-  --grass: #6a9a40;
-  --grass-dark: #4c7a2c;
-  --dirt: #544a26;
-  --dirt-dark: #342412;
-  --stone: #26241a;
-  --stone-2: #33301f;
+  --honey: #f5b82e;
+  --honey-dark: #c98a12;
+  --grass: #5aa83c;
+  --grass-dark: #3f7d29;
+  --dirt: #7a5233;
+  --dirt-dark: #4e331f;
+  --stone: #2a2a2e;
+  --stone-2: #333338;
   --ink: #f3efe6;
-  --ink-dim: #d7cc9a;
-  --sky-top: #5e763c;
-  --sky-bottom: #8fa862;
+  --ink-dim: #c8c2b4;
+  --sky-top: #6cb8e8;
+  --sky-bottom: #a8dcf5;
   --radius: 4px;
   --pixel-shadow: 4px 4px 0 rgba(0, 0, 0, .45);
 }
@@ -175,7 +175,7 @@ main { flex: 1; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .gallery button, .explore-card { transition: none; } }
 
-/* ---------- Councillors (React) ---------- */
+/* ---------- Councillors ---------- */
 .councillor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 .councillor img { width: 100%; height: auto; image-rendering: pixelated; }
 .councillor .territory { color: var(--honey); margin: 0; }

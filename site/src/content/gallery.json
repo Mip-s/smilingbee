@@ -1,0 +1,11 @@
+{
+  "_note": "PLACEHOLDER: put screenshots in public/gallery/ and list them here. 'src' is the image path under public/ (no leading slash).",
+  "images": [
+    { "src": "gallery/placeholder-1.svg", "caption": "PLACEHOLDER — Spawn at sunrise" },
+    { "src": "gallery/placeholder-2.svg", "caption": "PLACEHOLDER — Honeyvale town square" },
+    { "src": "gallery/placeholder-3.svg", "caption": "PLACEHOLDER — The Amber Peaks" },
+    { "src": "gallery/placeholder-4.svg", "caption": "PLACEHOLDER — Night over the farms" },
+    { "src": "gallery/placeholder-5.svg", "caption": "PLACEHOLDER — The Sunken Library" },
+    { "src": "gallery/placeholder-6.svg", "caption": "PLACEHOLDER — Community event" }
+  ]
+}

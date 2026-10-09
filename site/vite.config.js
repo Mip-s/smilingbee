@@ -1,10 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// Builds the React site into /live at the repo root so the Worker serves it as /live/.
-// base "./" keeps asset paths relative, so the build works under that subfolder.
+// Builds the React site into /dist at the repo root. The Worker serves that folder (see wrangler.jsonc).
 export default defineConfig({
   plugins: [react()],
-  base: "./",
-  build: { outDir: "../live", emptyOutDir: true },
+  base: "/",
+  build: { outDir: "../dist", emptyOutDir: true },
 });
