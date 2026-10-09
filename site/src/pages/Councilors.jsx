@@ -7,7 +7,7 @@ import { useContent, assetUrl } from "../ContentContext.jsx";
 // Clicking a seat opens its details in place. "Vacant" seats show an empty outline and no picture.
 export default function Councilors() {
   const [open, setOpen] = useState(null);
-  const { councilors, site } = useContent();
+  const { councilors } = useContent();
   const seats = councilors.councilors;
   const main = seats.slice(0, 6);
   const side = seats.slice(6);
@@ -52,9 +52,6 @@ export default function Councilors() {
           {side.map((c, i) => <Seat key={6 + i} c={c} index={6 + i} />)}
         </div>
       </div>
-      <p className="join">
-        <a href={site.discord} target="_blank" rel="noopener noreferrer">Join the Discord</a>
-      </p>
     </section>
   );
 }

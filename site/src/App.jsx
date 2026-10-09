@@ -6,6 +6,7 @@ import History from "./pages/History.jsx";
 import Lore from "./pages/Lore.jsx";
 import Councilors from "./pages/Councilors.jsx";
 import Gallery from "./pages/Gallery.jsx";
+import DiscordCard from "./DiscordCard.jsx";
 
 // Each page is picked from the URL path (/history, /lore, ...). Unknown paths show a short message.
 const PAGES = {
@@ -59,6 +60,8 @@ export default function App() {
       </header>
 
       <main>{content && (Page ? <Page /> : <NotFound />)}</main>
+
+      {content && <DiscordCard discord={content.site.discord} />}
 
       {content && (
         <footer className="site-footer">
