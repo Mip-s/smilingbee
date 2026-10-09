@@ -39,21 +39,25 @@ export default function DiscordCard({ discord }) {
         <article className="discord-card">
           <div className="discord-banner" aria-hidden="true" />
           <div className="discord-body">
-            <img className="discord-icon" src={assetUrl("images/bee.png")} alt="" width="72" height="72" />
-            <h3 className="discord-name">•°•Smiling Bee•°• <span aria-hidden="true">✪</span></h3>
-            {counts && (
-              <p className="discord-counts">
-                <span className="dot online" aria-hidden="true" /> {counts.online} Online
-                <span className="sep" aria-hidden="true">•</span>
-                <span className="dot" aria-hidden="true" /> {counts.members} Members
-              </p>
-            )}
-            <p className="discord-est">Est. Feb 2025</p>
-            <ul className="discord-tags">
-              {TAGS.map((t) => (
-                <li key={t.label}><span aria-hidden="true">{t.icon}</span> {t.label}</li>
-              ))}
-            </ul>
+            <div className="discord-info">
+              <img className="discord-icon" src={assetUrl("images/bee.png")} alt="" width="72" height="72" />
+              <div className="discord-text">
+                <h3 className="discord-name">•°•Smiling Bee•°• <span aria-hidden="true">✪</span></h3>
+                {counts && (
+                  <p className="discord-counts">
+                    <span className="dot online" aria-hidden="true" /> {counts.online} Online
+                    <span className="sep" aria-hidden="true">•</span>
+                    <span className="dot" aria-hidden="true" /> {counts.members} Members
+                  </p>
+                )}
+                <p className="discord-est">Est. Feb 2025</p>
+                <ul className="discord-tags">
+                  {TAGS.map((t) => (
+                    <li key={t.label}><span aria-hidden="true">{t.icon}</span> {t.label}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             <a className="discord-go" href={discord} target="_blank" rel="noopener noreferrer">Go to Server</a>
           </div>
         </article>
