@@ -176,9 +176,20 @@ main { flex: 1; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .gallery button, .explore-card { transition: none; } }
 
 /* ---------- Councillors ---------- */
-.councillor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-.councillor img { width: 100%; height: auto; image-rendering: pixelated; }
-.councillor .territory { color: var(--honey); margin: 0; }
+.councillors-page { padding-left: 16px; padding-right: 16px; }
+.councillors-page > h2 { max-width: 1400px; margin-left: auto; margin-right: auto; }
+.councillor-list { display: grid; gap: 20px; width: 100%; max-width: 1400px; margin: 0 auto; }
+.councillor { display: flex; align-items: center; gap: 32px; padding: 32px; min-height: 320px; margin: 0; }
+.councillor .details { flex: 1 1 auto; min-width: 0; }
+.councillor .details h3 { font-size: 1.3rem; margin: 0 0 6px; }
+.councillor .skin { flex: 0 0 auto; width: min(276px, 40%); margin: 0; }
+.councillor .skin img { width: 100%; height: auto; image-rendering: pixelated; }
+.councillor .territory { color: var(--honey); margin: 0 0 12px; }
+.councillor .vacant { font-size: 1.1rem; }
 .join { margin-top: 24px; text-align: center; }
 .placeholder-tag { outline: 2px dashed var(--honey); outline-offset: 2px; }
 .vacant { opacity: .6; }
+@media (max-width: 720px) {
+  .councillor { flex-direction: column-reverse; align-items: stretch; padding: 20px; gap: 20px; min-height: 0; }
+  .councillor .skin { width: 100%; max-width: 276px; margin: 0 auto; }
+}
