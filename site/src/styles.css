@@ -175,22 +175,35 @@ main { flex: 1; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .gallery button, .explore-card { transition: none; } }
 
-/* ---------- Councilors ---------- */
-.councilors-page { padding-left: 16px; padding-right: 16px; }
-.councilors-page > h2 { max-width: 1400px; margin-left: auto; margin-right: auto; }
-.councilor-list { display: grid; gap: 20px; width: 100%; max-width: 1400px; margin: 0 auto; }
-.councilor { display: flex; align-items: center; gap: 32px; padding: 32px; margin: 0; }
-.councilor .details { flex: 1 1 auto; min-width: 0; }
-.councilor .details h3 { font-size: 1.3rem; margin: 0 0 6px; }
-.councilor .skin { flex: 0 0 auto; width: min(276px, 40%); margin: 0; }
-.councilor .skin img { display: block; width: auto; height: 420px; max-width: 100%; aspect-ratio: 276 / 368; object-fit: contain; image-rendering: pixelated; border: 0; }
-.councilor .territory { color: var(--honey); margin: 0 0 12px; }
-.councilor .vacant { font-size: 1.1rem; }
-.join { margin-top: 24px; text-align: center; }
+/* ---------- Councilors (council table: 3 x 2 on the left, 1 on the right) ---------- */
+.councilors-page { padding: 24px 16px 8px; }
+.councilors-page > h2 { max-width: 1100px; margin: 0 auto 16px; }
+.council-table { display: grid; grid-template-columns: 3fr 2px 1fr; gap: 24px; align-items: center; max-width: 1100px; margin: 0 auto; }
+.council-main { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+.council-divider { background: var(--honey); align-self: stretch; border-radius: 1px; }
+.council-side { display: flex; justify-content: center; }
+.seat { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px 8px; cursor: pointer; background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); }
+.seat:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; }
+.seat:hover { background: var(--dirt-dark); }
+.seat.open { background: var(--dirt-dark); }
+.seat-skin { display: block; height: clamp(120px, calc((100vh - 360px) / 2 - 56px), 260px); width: auto; aspect-ratio: 276 / 368; max-width: 100%; object-fit: contain; image-rendering: pixelated; border: 0; }
+.seat-empty { border: 2px dashed var(--honey); opacity: .5; width: calc(clamp(120px, calc((100vh - 360px) / 2 - 56px), 260px) * 276 / 368); max-width: 100%; }
+.seat h3 { font-size: .95rem; margin: 8px 0 0; }
+.seat .territory { color: var(--honey); margin: 0 0 4px; font-size: .9rem; }
+.seat .seat-details { margin-top: 6px; }
+.seat .seat-details p { font-size: .9rem; }
+.seat.vacant { cursor: default; }
+.seat.vacant:hover { background: var(--stone-2); }
+.seat.vacant h3 { color: var(--ink-dim); }
 .placeholder-tag { outline: 2px dashed var(--honey); outline-offset: 2px; }
 .vacant { opacity: .6; }
+.join { margin: 16px 0 0; text-align: center; }
 @media (max-width: 720px) {
-  .councilor { flex-direction: column-reverse; align-items: stretch; padding: 20px; gap: 20px; }
-  .councilor .skin { width: 100%; margin: 0 auto; }
-  .councilor .skin img { height: auto; width: 100%; max-width: 276px; margin: 0 auto; }
+  .council-table { grid-template-columns: 1fr; gap: 16px; }
+  .council-divider { height: 2px; width: 100%; align-self: auto; }
+  .council-main { gap: 8px; }
+  .seat { padding: 8px 4px; }
+  .seat-skin { height: clamp(110px, 24vh, 180px); }
+  .seat h3 { font-size: .75rem; }
+  .seat .seat-details p, .seat .territory { font-size: .75rem; }
 }
