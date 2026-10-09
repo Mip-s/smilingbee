@@ -1,17 +1,17 @@
 /* Smilingbee — colors live here; tweak to restyle the whole site. */
 :root {
-  --honey: #f5b82e;
-  --honey-dark: #c98a12;
-  --grass: #5aa83c;
-  --grass-dark: #3f7d29;
-  --dirt: #7a5233;
-  --dirt-dark: #4e331f;
-  --stone: #2a2a2e;
-  --stone-2: #333338;
-  --ink: #f3efe6;
-  --ink-dim: #c8c2b4;
-  --sky-top: #6cb8e8;
-  --sky-bottom: #a8dcf5;
+  --honey: #c99a45;
+  --honey-dark: #a57a2e;
+  --grass: #6b8f3f;
+  --grass-dark: #46602a;
+  --dirt: #7a5a2e;
+  --dirt-dark: #4a2e14;
+  --stone: #2b3320;
+  --stone-2: #353f29;
+  --ink: #f6f0e0;
+  --ink-dim: #d4cdb8;
+  --sky-top: #8ab7c9;
+  --sky-bottom: #c4dde6;
   --radius: 4px;
   --pixel-shadow: 4px 4px 0 rgba(0, 0, 0, .45);
 }

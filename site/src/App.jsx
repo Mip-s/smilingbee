@@ -32,7 +32,7 @@ export default function App() {
       <header className="site-header">
         <nav className="nav" aria-label="Main">
           <a className="brand" href="/">
-            <img src={`${import.meta.env.BASE_URL}images/favicon.svg`} alt="" width="28" height="28" />
+            <img src={`${import.meta.env.BASE_URL}images/bee.png`} alt="" width="28" height="28" />
             <span>{site.serverName}</span>
           </a>
           <button
