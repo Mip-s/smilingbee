@@ -2,7 +2,7 @@ import { useContent } from "../ContentContext.jsx";
 import { AddButton, EditText, ItemControls, moveItem, patchItem, removeItem } from "../EditControls.jsx";
 import { PictureCarousel } from "../PictureCarousel.jsx";
 
-export default function Realms() {
+export default function Archives() {
   const { content, editing, setSection } = useContent();
   const data = content.lore;
   const edit = (key, change) => setSection("lore", (l) => ({ ...l, [key]: change(l[key]) }));
@@ -24,7 +24,7 @@ export default function Realms() {
   return (
     <section className="section page">
       <div className="container">
-        <h2 className="pixel">Realms</h2>
+        <h2 className="pixel">Archives</h2>
 
         <h3 className="sub">Places</h3>
         <div className="cards">

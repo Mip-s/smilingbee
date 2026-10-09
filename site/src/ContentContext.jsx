@@ -11,7 +11,7 @@ const DEFAULT_CONTENT = { site, history, lore, councilors, gallery };
 export const SECTION_NAMES = {
   site: "Home and header",
   history: "History",
-  lore: "Realms",
+  lore: "Archives",
   councilors: "Councilors",
   gallery: "Gallery",
 };

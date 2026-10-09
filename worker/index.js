@@ -7,8 +7,8 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const { pathname } = url;
-    // The Lore page is now Realms; keep old links working.
-    if (pathname === "/lore" || pathname === "/lore/") return Response.redirect(new URL("/realms", url), 301);
+    // The Lore and Realms pages are now Archives; keep old links working.
+    if (["/lore", "/lore/", "/realms", "/realms/"].includes(pathname)) return Response.redirect(new URL("/archives", url), 301);
     if (pathname.startsWith("/api/")) return handleApi(request, env);
     if (pathname.startsWith("/media/")) return handleMedia(request, env);
     return env.ASSETS.fetch(request);

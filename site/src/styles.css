@@ -359,7 +359,7 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .discord-card { border-color: var(--grass-dark); }
 .adm-who, .edit-bar-who, .edit-bar-ok, .edit-bar-error { color: var(--cream); }
 
-/* ---------- Picture carousel (realm cards and history entries) ---------- */
+/* ---------- Picture carousel (archive cards and history entries) ---------- */
 /* Every picture sits in the same 16:9 frame and is cropped to fill it, so the frame hugs the picture. */
 .carousel { position: relative; max-width: 560px; }
 .carousel-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #fffbe8; border: 3px solid #111; touch-action: pan-y; }

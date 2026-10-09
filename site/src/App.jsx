@@ -3,16 +3,16 @@ import { useContent, assetUrl } from "./ContentContext.jsx";
 import { EditBar, EditText } from "./EditControls.jsx";
 import Home from "./pages/Home.jsx";
 import History from "./pages/History.jsx";
-import Realms from "./pages/Realms.jsx";
+import Archives from "./pages/Archives.jsx";
 import Councilors from "./pages/Councilors.jsx";
 import Gallery from "./pages/Gallery.jsx";
 import DiscordCard from "./DiscordCard.jsx";
 
-// Each page is picked from the URL path (/history, /realms, ...). Unknown paths show a short message.
+// Each page is picked from the URL path (/history, /archives, ...). Unknown paths show a short message.
 const PAGES = {
   "": { title: "Home", Component: Home },
   history: { title: "History", Component: History },
-  realms: { title: "Realms", Component: Realms },
+  archives: { title: "Archives", Component: Archives },
   councilors: { title: "Councilors", Component: Councilors },
   gallery: { title: "Gallery", Component: Gallery },
 };

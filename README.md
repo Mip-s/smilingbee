@@ -1,6 +1,6 @@
 # Smilingbee — server website
 
-The website for the Smilingbee Minecraft server: Home, History, Realms (formerly Lore), Councilors and Gallery.
+The website for the Smilingbee Minecraft server: Home, History, Archives (formerly Realms and Lore), Councilors and Gallery.
 Built with Vite + React. The site lives in `site/`.
 
 ## Folder layout
@@ -30,7 +30,7 @@ username `MipElysium`, starting password `123`, which must be changed on first l
 - **Editing happens on the real pages.** After logging in at `/admin`, press **Open the website to edit**
   (or open the site while logged in and press **Edit this website** in the bar at the bottom). Click any
   text or picture to change it. Use the ▲ ▼ and Delete buttons on items, and the **+ Add** buttons for new
-  paragraphs, highlights, history entries, realms (places and factions), history entries and gallery pictures. Cards and entries can hold several pictures; visitors flip through them with the arrows.
+  paragraphs, highlights, history entries, archives (places and factions), history entries and gallery pictures. Cards and entries can hold several pictures; visitors flip through them with the arrows.
   Changes are kept as drafts until **Save changes** is pressed; **Discard** throws them away.
 - **My profile** (on `/admin`): change username (3 to 16 letters, digits or underscores) and password (at least 8 characters).
 - Councilors: always nine seats. A seat is emptied with **Empty this seat**, which makes it Vacant.

@@ -5,7 +5,7 @@ import { AddButton, EditText, ItemControls, moveItem, patchItem, removeItem } fr
 
 const EXPLORE = [
   { href: "/history", icon: "⏳", title: "History", text: "How the server grew, season by season." },
-  { href: "/realms", icon: "📜", title: "Realms", text: "Places and factions of the world." },
+  { href: "/archives", icon: "🗄️", title: "Archives", text: "Where the server's information is stored and preserved." },
   { href: "/councilors", icon: "🏛️", title: "Councilors", text: "Meet the nine seats of the council." },
   { href: "/gallery", icon: "🖼️", title: "Gallery", text: "Screenshots from around the world." },
 ];
