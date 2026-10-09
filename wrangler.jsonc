@@ -1,9 +1,27 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "smilingbee",
+  "main": "worker/index.js",
   "compatibility_date": "2025-10-01",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/media/*"]
+  },
+  // Admin accounts and content overrides (see worker/db.js).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "smilingbee-admin",
+      "database_id": "784af0f0-3eed-4630-bbb2-c0c372cc339a"
+    }
+  ],
+  // Pictures uploaded from the admin page (see worker/api.js).
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "smilingbee-media"
+    }
+  ]
 }

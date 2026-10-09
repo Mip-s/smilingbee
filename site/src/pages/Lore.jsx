@@ -1,10 +1,10 @@
-import data from "../content/lore.json";
 import { Text } from "../ui.jsx";
+import { useContent, assetUrl } from "../ContentContext.jsx";
 
 function Card({ title, text, image, className = "card", style }) {
   return (
     <article className={className} style={style}>
-      {image && <img src={`${import.meta.env.BASE_URL}${image}`} alt={title} loading="lazy" />}
+      {image && <img src={assetUrl(image)} alt={title} loading="lazy" />}
       <div className="body">
         <Text value={title} as="h4" />
         <Text value={text} />
@@ -14,6 +14,7 @@ function Card({ title, text, image, className = "card", style }) {
 }
 
 export default function Lore() {
+  const data = useContent().lore;
   return (
     <section className="section page">
       <div className="container">

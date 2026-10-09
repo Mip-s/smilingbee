@@ -1,14 +1,14 @@
 import { useState } from "react";
-import data from "../content/councilors.json";
 import { Text } from "../ui.jsx";
+import { useContent, assetUrl } from "../ContentContext.jsx";
 
 // The council always has 7 seats, laid out like a council table: six seats in two rows of three
 // on the left, and the seventh seat alone on the right, separated by a line.
 // Clicking a seat opens its details in place. "Vacant" seats show an empty outline and no picture.
 export default function Councilors() {
   const [open, setOpen] = useState(null);
-  const base = import.meta.env.BASE_URL;
-  const seats = data.councilors;
+  const { councilors, site } = useContent();
+  const seats = councilors.councilors;
   const main = seats.slice(0, 6);
   const side = seats.slice(6);
 
@@ -26,7 +26,7 @@ export default function Councilors() {
         onKeyDown={vacant ? undefined : (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } }}
       >
         {c.picture ? (
-          <img className="seat-skin" src={`${base}councilors/${c.picture}`} alt={`${c.name} full skin`} loading="lazy" />
+          <img className="seat-skin" src={assetUrl(c.picture)} alt={`${c.name} full skin`} loading="lazy" />
         ) : (
           <div className="seat-skin seat-empty" aria-hidden="true" />
         )}
@@ -53,7 +53,7 @@ export default function Councilors() {
         </div>
       </div>
       <p className="join">
-        <a href={data.discord} target="_blank" rel="noopener noreferrer">Join the Discord</a>
+        <a href={site.discord} target="_blank" rel="noopener noreferrer">Join the Discord</a>
       </p>
     </section>
   );

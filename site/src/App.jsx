@@ -1,6 +1,6 @@
 import { useState } from "react";
-import site from "./content/site.json";
 import { Text } from "./ui.jsx";
+import { useContent, assetUrl } from "./ContentContext.jsx";
 import Home from "./pages/Home.jsx";
 import History from "./pages/History.jsx";
 import Lore from "./pages/Lore.jsx";
@@ -24,6 +24,7 @@ function currentPage() {
 export default function App() {
   const key = currentPage();
   const [menuOpen, setMenuOpen] = useState(false);
+  const content = useContent();
   const page = key === null ? null : PAGES[key];
   const Page = page ? page.Component : null;
 
@@ -32,8 +33,8 @@ export default function App() {
       <header className="site-header">
         <nav className="nav" aria-label="Main">
           <a className="brand" href="/">
-            <img src={`${import.meta.env.BASE_URL}images/bee.png`} alt="" width="28" height="28" />
-            <span>{site.serverName}</span>
+            <img src={assetUrl("images/bee.png")} alt="" width="28" height="28" />
+            <span>{content?.site.serverName}</span>
           </a>
           <button
             className="nav-toggle"
@@ -51,17 +52,19 @@ export default function App() {
               </li>
             ))}
             <li>
-              <a href={site.discord} target="_blank" rel="noopener noreferrer">Discord</a>
+              <a href={content?.site.discord} target="_blank" rel="noopener noreferrer">Discord</a>
             </li>
           </ul>
         </nav>
       </header>
 
-      <main>{Page ? <Page /> : <NotFound />}</main>
+      <main>{content && (Page ? <Page /> : <NotFound />)}</main>
 
-      <footer className="site-footer">
-        <Text value={site.footer} />
-      </footer>
+      {content && (
+        <footer className="site-footer">
+          <Text value={content.site.footer} />
+        </footer>
+      )}
     </>
   );
 }

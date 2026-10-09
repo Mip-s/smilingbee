@@ -1,47 +1,47 @@
 {
-  "_note": "PLACEHOLDER: the council has 7 seats. Each entry is one seat. 'picture' is a file in public/councilors/ (leave it out if there is none). Seats with no councilor yet are marked Vacant. Replace every PLACEHOLDER value.",
-  "discord": "https://discord.gg/6xBfGfckma",
+  "_note": "PLACEHOLDER: the council has 7 seats. Each entry is one seat. 'picture' is a file under public/ (e.g. councilors/Name.png); leave it empty if there is none. Seats with no councilor yet are named Vacant. Replace every PLACEHOLDER value.",
   "councilors": [
     {
       "name": "MipElysium",
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
-      "picture": "MipElysium.png"
+      "picture": "councilors/MipElysium.png"
     },
     {
       "name": "SubarashiiAdam",
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
-      "picture": "SubarashiiAdam.png"
+      "picture": "councilors/SubarashiiAdam.png"
     },
     {
       "name": "VoltraSiren",
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
-      "picture": "voltrasiren.png"
+      "picture": "councilors/voltrasiren.png"
     },
     {
       "name": "Ainnur",
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
-      "picture": "Ainnur.png"
+      "picture": "councilors/Ainnur.png"
     },
     {
       "name": "Art_su",
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
-      "picture": "Art_su.png"
+      "picture": "councilors/Art_su.png"
     },
     {
       "name": "DaniiKiyogami",
       "territory": "PLACEHOLDER territory",
       "description": "PLACEHOLDER — a short line about this councilor.",
-      "picture": "DaniiKiyogami.png"
+      "picture": "councilors/DaniiKiyogami.png"
     },
     {
       "name": "Vacant",
       "territory": "—",
-      "description": "This seat is vacant."
+      "description": "This seat is vacant.",
+      "picture": ""
     }
   ]
 }

@@ -1,5 +1,5 @@
-import site from "../content/site.json";
 import { Text } from "../ui.jsx";
+import { useContent } from "../ContentContext.jsx";
 
 const EXPLORE = [
   { href: "/history", icon: "⏳", title: "History", text: "How the server grew, season by season." },
@@ -9,6 +9,7 @@ const EXPLORE = [
 ];
 
 export default function Home() {
+  const { site } = useContent();
   return (
     <>
       <section className="hero" id="home">

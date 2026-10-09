@@ -205,3 +205,58 @@ main { flex: 1; }
   .seat h3 { font-size: .75rem; }
   .seat .seat-details p, .seat .territory { font-size: .75rem; }
 }
+
+/* ---------- Admin (hidden page at /admin) ---------- */
+.adm-wrap { max-width: 920px; margin: 0 auto; padding: 24px 16px 48px; }
+.adm-wrap h1 { color: var(--honey); font-size: 16px; margin: 0; }
+.adm-top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-bottom: 16px; }
+.adm-who { margin-right: auto; color: var(--ink-dim); }
+.adm-login-wrap { max-width: 420px; padding-top: 72px; }
+.adm-card { background: var(--stone-2); border: 3px solid #111; box-shadow: var(--pixel-shadow); padding: 20px; margin-bottom: 20px; }
+.adm-login .adm-field, .adm-card .adm-field { margin-bottom: 14px; }
+.adm-field { display: flex; flex-direction: column; gap: 6px; font-weight: 700; }
+.adm-field small, .adm-hint, .adm-muted { color: var(--ink-dim); font-weight: 400; font-size: .9rem; }
+.adm-field input, .adm-field textarea {
+  font: inherit; color: var(--ink); background: var(--stone); border: 2px solid var(--dirt); border-radius: var(--radius);
+  padding: 8px 10px; width: 100%;
+}
+.adm-field input[type="color"] { width: 64px; height: 40px; padding: 2px; }
+.adm-field textarea { resize: vertical; }
+.adm-field input:focus-visible, .adm-field textarea:focus-visible { outline: 3px solid var(--honey); outline-offset: 1px; }
+.adm-btn {
+  font: inherit; font-weight: 700; color: #1d2a13; background: var(--honey); border: 0; border-radius: var(--radius);
+  padding: 10px 16px; cursor: pointer; box-shadow: 3px 3px 0 rgba(0, 0, 0, .45); display: inline-block;
+}
+.adm-btn:hover:not(:disabled) { background: var(--honey-dark); color: var(--ink); }
+.adm-btn:disabled { opacity: .5; cursor: not-allowed; }
+.adm-btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--dirt); box-shadow: none; }
+.adm-btn.ghost:hover:not(:disabled) { border-color: var(--honey); color: var(--honey); background: rgba(0, 0, 0, .2); }
+.adm-btn.danger { background: #8a3a2e; color: var(--ink); }
+.adm-btn.small { padding: 6px 10px; font-size: .9rem; }
+.adm-error { color: #ff9b8a; margin: 8px 0; }
+.adm-ok { color: #b8e08a; }
+.adm-notice { background: var(--dirt-dark); border-left: 6px solid var(--honey); padding: 10px 14px; margin: 0 0 16px; }
+.adm-tabs, .adm-sections { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.adm-tabs button, .adm-sections button {
+  font: inherit; color: var(--ink); background: var(--dirt-dark); border: 2px solid transparent; padding: 8px 12px; cursor: pointer;
+}
+.adm-tabs button.on, .adm-sections button.on { border-color: var(--honey); color: var(--honey); }
+.adm-sections button { position: relative; }
+.adm-dot { display: inline-block; width: 8px; height: 8px; background: var(--honey); border-radius: 50%; margin-left: 6px; vertical-align: middle; }
+.adm-sub { color: var(--honey); font-size: 1.05rem; margin: 22px 0 10px; }
+.adm-sub.first { margin-top: 0; }
+.adm-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 12px; }
+.adm-item { border: 2px solid var(--dirt); padding: 12px 14px 14px; margin: 0; }
+.adm-item legend { color: var(--honey); padding: 0 6px; font-weight: 700; }
+.adm-item-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.adm-picture { margin-bottom: 14px; }
+.adm-label { display: block; font-weight: 700; margin-bottom: 6px; }
+.adm-picture-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.adm-picture-row img { width: 96px; height: 96px; object-fit: contain; background: var(--stone); border: 2px solid var(--dirt); image-rendering: pixelated; }
+.adm-nopic { width: 96px; height: 96px; display: grid; place-items: center; border: 2px dashed var(--honey); color: var(--ink-dim); font-size: .85rem; text-align: center; }
+.adm-picture-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.adm-savebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-top: 18px; }
+.adm-profile { display: grid; gap: 0; }
+.adm-back { margin-top: 24px; }
+.adm-login-wrap .adm-back { text-align: center; }
+@media (min-width: 820px) { .adm-profile { grid-template-columns: 1fr 1fr; gap: 20px; } .adm-profile .adm-card { margin-bottom: 0; } }
