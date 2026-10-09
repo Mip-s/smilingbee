@@ -14,6 +14,8 @@ site/                 React source (edit here)
     councilors.json  the 7 council seats ("Vacant" marks an empty seat)
     gallery.json      list of pictures
   src/pages/          one file per page
+  src/EditControls.jsx  in-place editing controls (admins only)
+  src/admin/          the /admin login and My profile page
   public/             pictures and images served as-is (councilors/, gallery/, images/)
 worker/               Worker code: JSON API, admin login, picture uploads (see below)
 dist/                 built site (generated; this is what the Worker serves)
@@ -23,20 +25,23 @@ wrangler.jsonc        Cloudflare Worker config (serves dist/, binds D1 and R2)
 ## Admin area (hidden)
 
 `/admin` is not linked anywhere on the site. It asks for a username and password. Starting account:
-username `MipElysium`, starting password `123`, which must be changed on first login (My profile tab).
+username `MipElysium`, starting password `123`, which must be changed on first login (My profile).
 
-- **Edit website**: home text and highlights, history, lore, councilors (seven seats, type `Vacant` to empty one), gallery. Save each section; pictures are uploaded from the page.
-- **My profile**: change username (3 to 16 letters, digits or underscores) and password (at least 8 characters).
+- **Editing happens on the real pages.** After logging in at `/admin`, press **Open the website to edit**
+  (or open the site while logged in and press **Edit this website** in the bar at the bottom). Click any
+  text or picture to change it. Use the ▲ ▼ and Delete buttons on items, and the **+ Add** buttons for new
+  paragraphs, highlights, history entries, lore stories/places/factions and gallery pictures.
+  Changes are kept as drafts until **Save changes** is pressed; **Discard** throws them away.
+- **My profile** (on `/admin`): change username (3 to 16 letters, digits or underscores) and password (at least 8 characters).
+- Councilors: always seven seats. A seat is emptied with **Empty this seat**, which makes it Vacant.
 
 Where things live:
 - D1 database `smilingbee-admin`: admin accounts (passwords stored as PBKDF2 hashes), login sessions, and saved website text. The tables are created automatically on the first request.
 - R2 bucket `smilingbee-media`: uploaded pictures, served from `/media/...`.
-- Website text that has never been saved from the admin page comes from the JSON files in `site/src/content/`.
+- Website text that has never been saved from the admin tools comes from the JSON files in `site/src/content/`.
 - After 5 wrong passwords an account is locked for 15 minutes.
 
 Local testing: `npx wrangler dev` (uses a local copy of the database and bucket, not the live ones).
-
-Anything marked **PLACEHOLDER** is example text and shows a dashed outline until replaced.
 
 ## Editing content
 
@@ -53,7 +58,7 @@ npm run build        # writes ../dist
 
 Commit the updated `dist/` together with the source. The Cloudflare Worker `smilingbee` deploys the
 repo root on every push to `main` (`npx wrangler deploy`, no build step), so `dist/` must be up to date.
-Changes made in the admin page are saved to the database and do not need a rebuild.
+Changes made in the admin editor are saved to the database and do not need a rebuild.
 
 ## Previewing locally
 

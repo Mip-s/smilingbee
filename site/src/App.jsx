@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Text } from "./ui.jsx";
 import { useContent, assetUrl } from "./ContentContext.jsx";
+import { EditBar, EditText } from "./EditControls.jsx";
 import Home from "./pages/Home.jsx";
 import History from "./pages/History.jsx";
 import Lore from "./pages/Lore.jsx";
@@ -25,7 +25,7 @@ function currentPage() {
 export default function App() {
   const key = currentPage();
   const [menuOpen, setMenuOpen] = useState(false);
-  const content = useContent();
+  const { content, editing, setSection } = useContent();
   const page = key === null ? null : PAGES[key];
   const Page = page ? page.Component : null;
 
@@ -59,15 +59,23 @@ export default function App() {
         </nav>
       </header>
 
-      <main>{content && (Page ? <Page /> : <NotFound />)}</main>
+      <main className={editing ? "editing" : undefined}>{content && (Page ? <Page /> : <NotFound />)}</main>
 
       {content && <DiscordCard discord={content.site.discord} />}
 
       {content && (
         <footer className="site-footer">
-          <Text value={content.site.footer} />
+          <EditText
+            value={content.site.footer}
+            max={500}
+            multiline
+            label="Footer"
+            onChange={(v) => setSection("site", (site) => ({ ...site, footer: v }))}
+          />
         </footer>
       )}
+
+      <EditBar />
     </>
   );
 }
