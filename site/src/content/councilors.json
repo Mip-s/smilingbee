@@ -2,12 +2,46 @@
   "_note": "PLACEHOLDER: the council has 7 seats. Each entry is one seat. 'picture' is a file in public/councilors/ (leave it out if there is none). Seats with no councilor yet are marked Vacant. Replace every PLACEHOLDER value.",
   "discord": "https://discord.gg/6xBfGfckma",
   "councilors": [
-    { "name": "MipElysium", "territory": "PLACEHOLDER territory", "description": "PLACEHOLDER — a short line about this councilor.", "picture": "MipElysium.png" },
-    { "name": "SubarashiiAdam", "territory": "PLACEHOLDER territory", "description": "PLACEHOLDER — a short line about this councilor.", "picture": "SubarashiiAdam.png" },
-    { "name": "voltrasiren", "territory": "PLACEHOLDER territory", "description": "PLACEHOLDER — a short line about this councilor.", "picture": "voltrasiren.png" },
-    { "name": "Vacant", "territory": "—", "description": "This seat is vacant." },
-    { "name": "Vacant", "territory": "—", "description": "This seat is vacant." },
-    { "name": "Vacant", "territory": "—", "description": "This seat is vacant." },
-    { "name": "Vacant", "territory": "—", "description": "This seat is vacant." }
+    {
+      "name": "MipElysium",
+      "territory": "PLACEHOLDER territory",
+      "description": "PLACEHOLDER — a short line about this councilor.",
+      "picture": "MipElysium.png"
+    },
+    {
+      "name": "SubarashiiAdam",
+      "territory": "PLACEHOLDER territory",
+      "description": "PLACEHOLDER — a short line about this councilor.",
+      "picture": "SubarashiiAdam.png"
+    },
+    {
+      "name": "voltrasiren",
+      "territory": "PLACEHOLDER territory",
+      "description": "PLACEHOLDER — a short line about this councilor.",
+      "picture": "voltrasiren.png"
+    },
+    {
+      "name": "Ainnur",
+      "territory": "PLACEHOLDER territory",
+      "description": "PLACEHOLDER — a short line about this councilor.",
+      "picture": "Ainnur.png"
+    },
+    {
+      "name": "Art_su",
+      "territory": "PLACEHOLDER territory",
+      "description": "PLACEHOLDER — a short line about this councilor.",
+      "picture": "Art_su.png"
+    },
+    {
+      "name": "DaniiKiyogami",
+      "territory": "PLACEHOLDER territory",
+      "description": "PLACEHOLDER — a short line about this councilor.",
+      "picture": "DaniiKiyogami.png"
+    },
+    {
+      "name": "Vacant",
+      "territory": "—",
+      "description": "This seat is vacant."
+    }
   ]
 }
