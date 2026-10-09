@@ -28,7 +28,7 @@ export default function Councillors() {
             <div className="gallery councillor-grid">
               {data.councillors.map((c, i) => (
                 <article className="card councillor" key={i}>
-                  {c.picture && <img src={`/councillors/${c.picture}`} alt={c.name} loading="lazy" />}
+                  {c.picture && <img src={`${import.meta.env.BASE_URL}councillors/${c.picture}`} alt={c.name} loading="lazy" />}
                   <Text value={c.name} as="h3" className={c.name === "Vacant" ? "vacant" : undefined} />
                   <Text value={c.territory} className="territory" />
                   <Text value={c.description} className={c.name === "Vacant" ? "vacant" : undefined} />
