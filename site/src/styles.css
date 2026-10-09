@@ -179,17 +179,18 @@ main { flex: 1; }
 .councillors-page { padding-left: 16px; padding-right: 16px; }
 .councillors-page > h2 { max-width: 1400px; margin-left: auto; margin-right: auto; }
 .councillor-list { display: grid; gap: 20px; width: 100%; max-width: 1400px; margin: 0 auto; }
-.councillor { display: flex; align-items: center; gap: 32px; padding: 32px; min-height: 320px; margin: 0; }
+.councillor { display: flex; align-items: center; gap: 32px; padding: 32px; margin: 0; }
 .councillor .details { flex: 1 1 auto; min-width: 0; }
 .councillor .details h3 { font-size: 1.3rem; margin: 0 0 6px; }
 .councillor .skin { flex: 0 0 auto; width: min(276px, 40%); margin: 0; }
-.councillor .skin img { width: 100%; height: auto; image-rendering: pixelated; }
+.councillor .skin img { display: block; width: auto; height: 420px; max-width: 100%; aspect-ratio: 276 / 368; object-fit: contain; image-rendering: pixelated; border: 0; }
 .councillor .territory { color: var(--honey); margin: 0 0 12px; }
 .councillor .vacant { font-size: 1.1rem; }
 .join { margin-top: 24px; text-align: center; }
 .placeholder-tag { outline: 2px dashed var(--honey); outline-offset: 2px; }
 .vacant { opacity: .6; }
 @media (max-width: 720px) {
-  .councillor { flex-direction: column-reverse; align-items: stretch; padding: 20px; gap: 20px; min-height: 0; }
-  .councillor .skin { width: 100%; max-width: 276px; margin: 0 auto; }
+  .councillor { flex-direction: column-reverse; align-items: stretch; padding: 20px; gap: 20px; }
+  .councillor .skin { width: 100%; margin: 0 auto; }
+  .councillor .skin img { height: auto; width: 100%; max-width: 276px; margin: 0 auto; }
 }
