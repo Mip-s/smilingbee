@@ -372,3 +372,5 @@ main.editing { outline: 3px dashed var(--honey); outline-offset: -8px; }
 .carousel-empty { display: grid; place-items: center; height: clamp(180px, 40vw, 320px); color: var(--ink-dim); background: #fffbe8; border: 2px dashed var(--honey-dark); font-size: .9rem; }
 .timeline .carousel { margin-top: 12px; }
 .timeline .carousel-stage { border: 3px solid #111; }
+/* Cards fill their picture frame; history entries show the whole picture. */
+.card .carousel-stage img { height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
