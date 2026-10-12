@@ -11,7 +11,8 @@ const PICTURE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
 // Text that becomes a field while editing. `as` is the tag the text normally uses.
 export function EditText({ value, onChange, as: Tag = "p", className = "", multiline = false, max, label }) {
   const { editing } = useContent();
-  if (!editing) return <Text value={value} as={Tag} className={className || undefined} />;
+  // Line breaks typed in a multi-line field are kept on the public page too.
+  if (!editing) return <Text value={value} as={Tag} className={[className, multiline ? "pre-line" : ""].filter(Boolean).join(" ") || undefined} />;
   const props = {
     value,
     maxLength: max,

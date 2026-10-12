@@ -26,7 +26,7 @@ export function Lightbox({ pictures, index, onIndex, onClose }) {
       )}
       <figure>
         <img src={assetUrl(shot.src)} alt={shot.alt ?? ""} />
-        {shot.caption && <figcaption>{shot.caption}</figcaption>}
+        {shot.caption && <figcaption className="pre-line">{shot.caption}</figcaption>}
       </figure>
       {count > 1 && (
         <button className="lb-next" aria-label="Next image" onClick={() => onIndex((index + 1) % count)}>›</button>

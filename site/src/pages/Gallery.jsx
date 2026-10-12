@@ -28,7 +28,7 @@ export default function Gallery() {
                   alt=""
                   onChange={(v) => edit((g) => ({ ...g, images: patchItem(g.images, i, { src: v }) }))}
                 />
-                <EditText value={img.caption} max={200} label="Caption" onChange={(v) => edit((g) => ({ ...g, images: patchItem(g.images, i, { caption: v }) }))} />
+                <EditText value={img.caption} max={200} multiline label="Caption" onChange={(v) => edit((g) => ({ ...g, images: patchItem(g.images, i, { caption: v }) }))} />
                 <ItemControls
                   label="picture"
                   index={i}

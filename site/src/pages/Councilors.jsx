@@ -179,7 +179,7 @@ function Island({ c, from, source, onDone }) {
         <div className="focus-details">
           <Text value={c.name} as="h2" className={`pixel${vacant ? " vacant" : ""}`} />
           <Text value={c.territory} className="territory" />
-          <Text value={c.description} />
+          <Text value={c.description} className="pre-line" />
         </div>
       </div>
     </div>
