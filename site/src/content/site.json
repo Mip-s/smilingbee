@@ -1,16 +1,28 @@
 {
   "_note": "PLACEHOLDER: edit the text below. This file controls the Home page, the header and the footer.",
   "serverName": "Smilingbee",
-  "tagline": "PLACEHOLDER — a cozy survival world built together, one block at a time.",
+  "tagline": "A Server where friends of friends of friends play together",
   "welcome": [
     "PLACEHOLDER — Welcome to Smilingbee! Write a couple of friendly sentences here about what the server is and who it's for.",
     "PLACEHOLDER — Mention the play style (survival, building, community events…) and what makes the world special."
   ],
   "highlights": [
-    { "icon": "🐝", "title": "PLACEHOLDER Highlight", "text": "Short line about something players love." },
-    { "icon": "🏰", "title": "PLACEHOLDER Highlight", "text": "Short line about builds, towns or projects." },
-    { "icon": "📜", "title": "PLACEHOLDER Highlight", "text": "Short line about lore, events or community." }
+    {
+      "icon": "🐝",
+      "title": "Friendly vanilla survival",
+      "text": "A kind community playing vanilla survival together. Everyone is welcome to join."
+    },
+    {
+      "icon": "🏰",
+      "title": "Towns, builds & worlds",
+      "text": "Towns, builds and worldbuilding projects made together by the community."
+    },
+    {
+      "icon": "📜",
+      "title": "History & Archives",
+      "text": "Read how the server grew, meet the councilors and explore the Archives."
+    }
   ],
   "discord": "https://discord.gg/6xBfGfckma",
-  "footer": "PLACEHOLDER — Smilingbee is a fan-run server and is not affiliated with Mojang or Microsoft."
+  "footer": "Smilingbee is a fan-run server and is not affiliated with Mojang or Microsoft."
 }
