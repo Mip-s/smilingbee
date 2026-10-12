@@ -30,12 +30,12 @@ export default function Archives() {
         <div className="cards">
           {data.moments.map((o, i) => (
             <article className="card" key={i}>
-              <PictureCarousel images={o.images} alt={o.name} onChange={(images) => edit("moments", (l) => patchItem(l, i, { images }))} />
               <div className="body">
                 {(editing || o.when) && (
                   <EditText as="p" className="when" value={o.when} max={120} label="Moment time note" onChange={(v) => edit("moments", (l) => patchItem(l, i, { when: v }))} />
                 )}
                 <EditText as="h4" value={o.name} max={120} label="Moment title" onChange={(v) => edit("moments", (l) => patchItem(l, i, { name: v }))} />
+                <PictureCarousel images={o.images} alt={o.name} onChange={(images) => edit("moments", (l) => patchItem(l, i, { images }))} />
                 <EditText value={o.text} max={2000} multiline label="Moment text" onChange={(v) => edit("moments", (l) => patchItem(l, i, { text: v }))} />
                 {controls("moments", "moment", i)}
               </div>
@@ -50,9 +50,9 @@ export default function Archives() {
         <div className="cards">
           {data.factions.map((f, i) => (
             <article className="card faction" key={i} style={{ borderLeftColor: f.color }}>
-              <PictureCarousel images={f.images} alt={f.name} onChange={(images) => edit("factions", (l) => patchItem(l, i, { images }))} />
               <div className="body">
                 <EditText as="h4" value={f.name} max={120} label="Faction name" onChange={(v) => edit("factions", (l) => patchItem(l, i, { name: v }))} />
+                <PictureCarousel images={f.images} alt={f.name} onChange={(images) => edit("factions", (l) => patchItem(l, i, { images }))} />
                 {editing && (
                   <label className="edit-field-row edit-inline">
                     <span>Color</span>

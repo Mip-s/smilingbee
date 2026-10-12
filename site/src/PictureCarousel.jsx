@@ -1,10 +1,11 @@
 // A row of pictures on one card or history entry. Visitors flip through them with the arrows, a swipe, or
-// let them change by themselves every 12 seconds. While an admin is editing, the same pictures can be
-// moved, removed and added to here, and the automatic change is paused.
+// let them change by themselves every 12 seconds. Clicking a picture opens it full size. While an admin is editing,
+// the same pictures can be moved, removed and added to here, and the automatic change is paused.
 import { useEffect, useState } from "react";
 import { assetUrl, useContent } from "./ContentContext.jsx";
 import { api } from "./admin/api.js";
 import { shrinkPicture } from "./shrink.js";
+import { Lightbox } from "./Lightbox.jsx";
 
 const PICTURE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
 const CHANGE_EVERY_MS = 12000;
@@ -20,15 +21,16 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
   const [error, setError] = useState("");
   const [touchX, setTouchX] = useState(null);
   const [ratios, setRatios] = useState({}); // picture address -> width divided by height, once loaded
+  const [zoom, setZoom] = useState(null); // index of the picture open in the lightbox, or null
 
   const count = images.length;
   const i = count ? Math.min(index, count - 1) : 0;
   const shown = images[i];
 
-  // Change the picture every 12 seconds. Stops while hovered, focused, editing, or if the visitor asked for less motion.
-  // After an arrow press or swipe, waits 30 seconds before the automatic change resumes.
+  // Change the picture every 12 seconds. Stops while hovered, focused, editing, open in the lightbox,
+  // or if the visitor asked for less motion. After an arrow press or swipe, waits 30 seconds before it resumes.
   useEffect(() => {
-    if (count < 2 || editing || paused) return undefined;
+    if (count < 2 || editing || paused || zoom !== null) return undefined;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
     let timer;
     const start = () => {
@@ -41,7 +43,7 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
       clearTimeout(resume);
       clearInterval(timer);
     };
-  }, [count, editing, paused, index, holdUntil]);
+  }, [count, editing, paused, zoom, index, holdUntil]);
 
   if (!editing && count === 0) return null;
 
@@ -109,12 +111,13 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
           onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
           onTouchEnd={(e) => swipe(e.changedTouches[0].clientX)}
         >
-          <img
-            src={assetUrl(shown)}
-            alt={count > 1 ? `${alt} (picture ${i + 1} of ${count})` : alt}
-            loading="lazy"
-            onLoad={(e) => measure(shown, e.currentTarget)}
-          />
+          {editing ? (
+            <img src={assetUrl(shown)} alt={count > 1 ? `${alt} (picture ${i + 1} of ${count})` : alt} loading="lazy" onLoad={(e) => measure(shown, e.currentTarget)} />
+          ) : (
+            <button type="button" className="carousel-zoom" aria-label={`Open ${alt || "picture"} full size`} onClick={() => setZoom(i)}>
+              <img src={assetUrl(shown)} alt={count > 1 ? `${alt} (picture ${i + 1} of ${count})` : alt} loading="lazy" onLoad={(e) => measure(shown, e.currentTarget)} />
+            </button>
+          )}
           {count > 1 && (
             <>
               <button type="button" className="carousel-arrow prev" aria-label="Previous picture" onClick={() => step(-1)}>‹</button>
@@ -138,6 +141,20 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
         </div>
       )}
       {error && <p className="edit-error" role="alert">{error}</p>}
+      {zoom !== null && !editing && (
+        <Lightbox
+          pictures={images.map((src) => ({ src, caption: alt }))}
+          index={zoom}
+          onIndex={(n) => {
+            setZoom(n);
+            setIndex(n);
+          }}
+          onClose={() => {
+            setZoom(null);
+            setHoldUntil(Date.now() + HOLD_AFTER_PRESS_MS);
+          }}
+        />
+      )}
     </div>
   );
 }

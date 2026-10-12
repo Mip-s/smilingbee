@@ -16,8 +16,8 @@ export default function History() {
             <li key={i}>
               <EditText as="div" className="date" value={e.date} max={60} label="Date" onChange={(v) => edit((h) => ({ ...h, entries: patchItem(h.entries, i, { date: v }) }))} />
               <EditText as="h3" value={e.title} max={120} label="Title" onChange={(v) => edit((h) => ({ ...h, entries: patchItem(h.entries, i, { title: v }) }))} />
-              <EditText value={e.text} max={2000} multiline label="Text" onChange={(v) => edit((h) => ({ ...h, entries: patchItem(h.entries, i, { text: v }) }))} />
               <PictureCarousel images={e.images} alt={e.title} onChange={(images) => edit((h) => ({ ...h, entries: patchItem(h.entries, i, { images }) }))} />
+              <EditText value={e.text} max={2000} multiline label="Text" onChange={(v) => edit((h) => ({ ...h, entries: patchItem(h.entries, i, { text: v }) }))} />
               <ItemControls
                 label="entry"
                 index={i}
