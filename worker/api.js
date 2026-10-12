@@ -14,6 +14,7 @@ import {
 } from "./auth.js";
 import { HttpError, json, readJson, requireSameOrigin } from "./http.js";
 
+const OWNER_USERNAME = "mipelysium"; // the owner account (lowercase). Only the owner manages users, and its name can't change.
 const MAX_FAILED_LOGINS = 5;
 const LOCK_MINUTES = 15;
 const USERNAME = /^[A-Za-z0-9_]{3,16}$/; // the same rules as a Minecraft name
@@ -52,15 +53,53 @@ async function route(request, env) {
   }
   if (pathname === "/api/admin/account" && method === "POST") return changeAccount(request, env);
   if (pathname === "/api/admin/media" && method === "POST") return uploadPicture(request, env);
+  if (pathname === "/api/admin/users" && method === "GET") return listUsers(request, env);
+  if (pathname === "/api/admin/users" && method === "POST") return addUser(request, env);
 
   const match = pathname.match(/^\/api\/admin\/content\/([a-z]+)$/);
   if (match && method === "PUT") return saveContent(request, env, match[1]);
+
+  const userMatch = pathname.match(/^\/api\/admin\/users\/(\d+)(\/password)?$/);
+  if (userMatch && !userMatch[2] && method === "DELETE") return removeUser(request, env, Number(userMatch[1]));
+  if (userMatch && userMatch[2] && method === "POST") return resetPassword(request, env, Number(userMatch[1]));
 
   throw new HttpError(404, "Not found.");
 }
 
 function profile(user) {
-  return { username: user.username, mustChangePassword: user.must_change_password === 1 };
+  return {
+    username: user.username,
+    mustChangePassword: user.must_change_password === 1,
+    isOwner: user.username_lc === OWNER_USERNAME,
+  };
+}
+
+// Editing and uploads need a password the person chose themselves (see changeAccount).
+async function requireEditor(request, env) {
+  const session = await requireUser(request, env);
+  if (session.user.must_change_password === 1) {
+    throw new HttpError(403, "Change the starting password under My profile first.");
+  }
+  return session;
+}
+
+async function requireOwner(request, env) {
+  const session = await requireEditor(request, env);
+  if (session.user.username_lc !== OWNER_USERNAME) throw new HttpError(403, "Only the owner can manage users.");
+  return session;
+}
+
+function checkNewPassword(value) {
+  const password = String(value ?? "");
+  if (password.length < MIN_PASSWORD) throw new HttpError(400, `The password must be at least ${MIN_PASSWORD} characters.`);
+  if (password.length > 200) throw new HttpError(400, "The password is too long.");
+  return password;
+}
+
+async function findUser(env, id) {
+  const user = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(id).first();
+  if (!user) throw new HttpError(404, "That user no longer exists.");
+  return user;
 }
 
 async function publicContent(env) {
@@ -130,6 +169,7 @@ async function changeAccount(request, env) {
       throw new HttpError(400, "Usernames use 3 to 16 letters, digits or underscores, like a Minecraft name.");
     }
     if (username !== user.username) {
+      if (user.username_lc === OWNER_USERNAME) throw new HttpError(403, "The owner's username can't be changed.");
       const taken = await env.DB.prepare("SELECT id FROM users WHERE username_lc = ? AND id != ?")
         .bind(username.toLowerCase(), user.id)
         .first();
@@ -169,7 +209,7 @@ async function changeAccount(request, env) {
 
 async function saveContent(request, env, key) {
   requireSameOrigin(request);
-  const { user } = await requireUser(request, env);
+  const { user } = await requireEditor(request, env);
   if (!KEYS.includes(key)) throw new HttpError(404, "Unknown section.");
   const body = await readJson(request);
   const value = validateContent(key, body);
@@ -184,7 +224,7 @@ async function saveContent(request, env, key) {
 
 async function uploadPicture(request, env) {
   requireSameOrigin(request);
-  await requireUser(request, env);
+  await requireEditor(request, env);
   const ext = PICTURE_TYPES[(request.headers.get("Content-Type") || "").split(";")[0].trim()];
   if (!ext) throw new HttpError(415, "Pictures must be PNG, JPG, WebP or GIF.");
   const bytes = await request.arrayBuffer();
@@ -193,4 +233,64 @@ async function uploadPicture(request, env) {
   const name = `${crypto.randomUUID()}.${ext}`;
   await env.MEDIA.put(name, bytes, { httpMetadata: { contentType: request.headers.get("Content-Type").split(";")[0].trim() } });
   return json({ url: `/media/${name}` });
+}
+
+// Owner-only user management. Added users get a temporary password the owner chooses, and must change it at first login.
+async function listUsers(request, env) {
+  await requireOwner(request, env);
+  const { results } = await env.DB.prepare("SELECT * FROM users ORDER BY id").all();
+  const now = Date.now();
+  return json(
+    results.map((u) => ({
+      id: u.id,
+      username: u.username,
+      owner: u.username_lc === OWNER_USERNAME,
+      mustChangePassword: u.must_change_password === 1,
+      locked: u.locked_until > now,
+    }))
+  );
+}
+
+async function addUser(request, env) {
+  requireSameOrigin(request);
+  await requireOwner(request, env);
+  const body = await readJson(request);
+  const username = String(body.username ?? "").trim();
+  if (!USERNAME.test(username)) {
+    throw new HttpError(400, "Usernames use 3 to 16 letters, digits or underscores, like a Minecraft name.");
+  }
+  const password = checkNewPassword(body.password);
+  const taken = await env.DB.prepare("SELECT id FROM users WHERE username_lc = ?").bind(username.toLowerCase()).first();
+  if (taken) throw new HttpError(409, "That username is already taken.");
+  await env.DB.prepare("INSERT INTO users (username, username_lc, password_hash, must_change_password) VALUES (?, ?, ?, 1)")
+    .bind(username, username.toLowerCase(), await hashPassword(password))
+    .run();
+  return json({ username }, 201);
+}
+
+async function resetPassword(request, env, id) {
+  requireSameOrigin(request);
+  const { user } = await requireOwner(request, env);
+  if (id === user.id) throw new HttpError(400, "Change your own password under My profile.");
+  const target = await findUser(env, id);
+  const password = checkNewPassword((await readJson(request)).password);
+  // The user must choose a new password at next login. Their other sessions end now, and the lockout is cleared.
+  await env.DB.batch([
+    env.DB.prepare("UPDATE users SET password_hash = ?, must_change_password = 1, failed_logins = 0, locked_until = 0 WHERE id = ?")
+      .bind(await hashPassword(password), id),
+    env.DB.prepare("DELETE FROM sessions WHERE user_id = ?").bind(id),
+  ]);
+  return json({ username: target.username });
+}
+
+async function removeUser(request, env, id) {
+  requireSameOrigin(request);
+  const { user } = await requireOwner(request, env);
+  if (id === user.id) throw new HttpError(400, "You can't remove your own account.");
+  const target = await findUser(env, id);
+  await env.DB.batch([
+    env.DB.prepare("DELETE FROM sessions WHERE user_id = ?").bind(id),
+    env.DB.prepare("DELETE FROM users WHERE id = ?").bind(id),
+  ]);
+  return json({ username: target.username });
 }

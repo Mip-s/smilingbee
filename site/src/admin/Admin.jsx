@@ -63,6 +63,15 @@ function LoginForm({ onLogin }) {
 }
 
 function Dashboard({ user, onUser, onLogout }) {
+  // Someone using the starting password only sees My profile until they choose their own.
+  const [tab, setTab] = useState("website");
+  const current = user.mustChangePassword ? "profile" : tab;
+  const tabs = [
+    ["website", "Edit the website"],
+    ["profile", "My profile"],
+    ...(user.isOwner ? [["users", "Users"]] : []),
+  ];
+
   async function logout() {
     await api("/api/admin/logout", { method: "POST", json: {} }).catch(() => {});
     onLogout();
@@ -88,22 +97,177 @@ function Dashboard({ user, onUser, onLogout }) {
 
       {user.mustChangePassword && (
         <p className="adm-notice" role="status">
-          You are still using the starting password. Change it below.
+          You are still using the starting password. Change it below before you can edit the website.
         </p>
       )}
 
-      <div className="adm-card adm-start">
-        <h2 className="adm-sub first">Edit the website</h2>
-        <p className="adm-hint">
-          Open the website and click any text or picture to change it. Add, move and delete items with the buttons next to them.
-          Save from the bar at the bottom of the page.
-        </p>
-        <button className="adm-btn" onClick={editWebsite}>Open the website to edit</button>
-      </div>
+      {!user.mustChangePassword && (
+        <nav className="adm-tabs" aria-label="Admin sections">
+          {tabs.map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              className={`adm-tab${current === key ? " on" : ""}`}
+              aria-current={current === key ? "page" : undefined}
+              onClick={() => setTab(key)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+      )}
 
-      <Profile user={user} onUser={onUser} />
+      {current === "website" && (
+        <div className="adm-card adm-start">
+          <h2 className="adm-sub first">Edit the website</h2>
+          <p className="adm-hint">
+            Open the website and click any text or picture to change it. Add, move and delete items with the buttons next to them.
+            Save from the bar at the bottom of the page.
+          </p>
+          <button className="adm-btn" onClick={editWebsite}>Open the website to edit</button>
+        </div>
+      )}
+
+      {current === "profile" && <Profile user={user} onUser={onUser} />}
+      {current === "users" && <Users />}
+
       <p className="adm-back"><a href="/">Back to the website</a></p>
     </div>
+  );
+}
+
+// Owner only: add, reset and remove the accounts that can edit the website.
+function Users() {
+  const [list, setList] = useState(null);
+  const [error, setError] = useState("");
+
+  async function load() {
+    try {
+      setList(await api("/api/admin/users"));
+      setError("");
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  return (
+    <>
+      <AddUser onAdded={load} />
+      <div className="adm-card">
+        <h2 className="adm-sub first">Users</h2>
+        <p className="adm-hint">
+          Users can edit the website and change their own password. Only you can add, reset or remove users.
+          A new user or a reset password must be changed at their next login.
+        </p>
+        {error && <p className="adm-error" role="alert">{error}</p>}
+        {list === null && !error && <p>Loading…</p>}
+        {list && (
+          <ul className="adm-users">
+            {list.map((u) => (
+              <UserRow key={u.id} u={u} onChanged={load} />
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
+  );
+}
+
+function AddUser({ onAdded }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(e) {
+    e.preventDefault();
+    setBusy(true);
+    setMessage(null);
+    try {
+      const added = await api("/api/admin/users", { method: "POST", json: { username, password } });
+      setMessage({ ok: true, text: `Added ${added.username}. Give them the temporary password; they must change it at first login.` });
+      setUsername("");
+      setPassword("");
+      onAdded();
+    } catch (err) {
+      setMessage({ ok: false, text: err.message });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form className="adm-card" onSubmit={submit}>
+      <h2 className="adm-sub first">Add a user</h2>
+      <p className="adm-hint">Use their Minecraft name. Set a temporary password of at least 8 characters and tell it to them.</p>
+      <TextField label="Minecraft name" value={username} max={16} onChange={setUsername} />
+      <TextField label="Temporary password" value={password} onChange={setPassword} />
+      <div className="adm-savebar">
+        <button className="adm-btn" disabled={busy || !username || !password}>Add user</button>
+        {message && <span className={message.ok ? "adm-ok" : "adm-error"} role="status">{message.text}</span>}
+      </div>
+    </form>
+  );
+}
+
+function UserRow({ u, onChanged }) {
+  const [resetting, setResetting] = useState(false);
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
+
+  async function reset(e) {
+    e.preventDefault();
+    setMessage(null);
+    try {
+      await api(`/api/admin/users/${u.id}/password`, { method: "POST", json: { password } });
+      setResetting(false);
+      setPassword("");
+      onChanged();
+    } catch (err) {
+      setMessage({ ok: false, text: err.message });
+    }
+  }
+
+  async function remove() {
+    if (!window.confirm(`Remove ${u.username}? They will be logged out and can't log in again.`)) return;
+    setMessage(null);
+    try {
+      await api(`/api/admin/users/${u.id}`, { method: "DELETE" });
+      onChanged();
+    } catch (err) {
+      setMessage({ ok: false, text: err.message });
+    }
+  }
+
+  const notes = [u.owner ? "Owner" : "Editor"];
+  if (u.mustChangePassword) notes.push("must change password");
+  if (u.locked) notes.push("locked after failed logins");
+
+  return (
+    <li className="adm-user">
+      <div className="adm-user-row">
+        <span className="adm-user-who">
+          <b>{u.username}</b> <span className="adm-hint">{notes.join(" · ")}</span>
+        </span>
+        {!u.owner && (
+          <span className="adm-user-actions">
+            <button type="button" className="adm-btn ghost small" onClick={() => setResetting((r) => !r)}>Reset password</button>
+            <button type="button" className="adm-btn danger small" onClick={remove}>Remove</button>
+          </span>
+        )}
+      </div>
+      {resetting && (
+        <form className="adm-user-reset" onSubmit={reset}>
+          <TextField label={`New temporary password for ${u.username}`} value={password} onChange={setPassword} />
+          <button className="adm-btn small" disabled={!password}>Set password</button>
+        </form>
+      )}
+      {message && <p className={message.ok ? "adm-ok" : "adm-error"} role="status">{message.text}</p>}
+    </li>
   );
 }
 
