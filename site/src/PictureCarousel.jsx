@@ -1,5 +1,5 @@
 // A row of pictures on one card or history entry. Visitors flip through them with the arrows, a swipe, or
-// let them change by themselves every few seconds. While an admin is editing, the same pictures can be
+// let them change by themselves every 12 seconds. While an admin is editing, the same pictures can be
 // moved, removed and added to here, and the automatic change is paused.
 import { useEffect, useState } from "react";
 import { assetUrl, useContent } from "./ContentContext.jsx";
@@ -7,7 +7,7 @@ import { api } from "./admin/api.js";
 import { shrinkPicture } from "./shrink.js";
 
 const PICTURE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
-const CHANGE_EVERY_MS = 3000;
+const CHANGE_EVERY_MS = 12000;
 const HOLD_AFTER_PRESS_MS = 30000; // a visitor's arrow press or swipe stops the automatic change for this long
 const SWIPE_PX = 40;
 
@@ -25,7 +25,7 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
   const i = count ? Math.min(index, count - 1) : 0;
   const shown = images[i];
 
-  // Change the picture every few seconds. Stops while hovered, focused, editing, or if the visitor asked for less motion.
+  // Change the picture every 12 seconds. Stops while hovered, focused, editing, or if the visitor asked for less motion.
   // After an arrow press or swipe, waits 30 seconds before the automatic change resumes.
   useEffect(() => {
     if (count < 2 || editing || paused) return undefined;
