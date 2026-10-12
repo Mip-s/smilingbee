@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { assetUrl } from "./ContentContext.jsx";
+import { Rich } from "./RichText.jsx";
 
 export function Lightbox({ pictures, index, onIndex, onClose }) {
   const count = pictures.length;
@@ -26,7 +27,7 @@ export function Lightbox({ pictures, index, onIndex, onClose }) {
       )}
       <figure>
         <img src={assetUrl(shot.src)} alt={shot.alt ?? ""} />
-        {shot.caption && <figcaption className="pre-line">{shot.caption}</figcaption>}
+        {shot.caption && <Rich as="figcaption" value={shot.caption} />}
       </figure>
       {count > 1 && (
         <button className="lb-next" aria-label="Next image" onClick={() => onIndex((index + 1) % count)}>›</button>
