@@ -8,12 +8,14 @@ import { shrinkPicture } from "./shrink.js";
 
 const PICTURE_TYPES = "image/png,image/jpeg,image/webp,image/gif";
 const CHANGE_EVERY_MS = 3000;
+const HOLD_AFTER_PRESS_MS = 30000; // a visitor's arrow press or swipe stops the automatic change for this long
 const SWIPE_PX = 40;
 
 export function PictureCarousel({ images = [], alt = "", onChange }) {
   const { editing } = useContent();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false); // hovered or focused
+  const [holdUntil, setHoldUntil] = useState(0); // time (ms) until which the automatic change waits
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [touchX, setTouchX] = useState(null);
@@ -24,18 +26,28 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
   const shown = images[i];
 
   // Change the picture every few seconds. Stops while hovered, focused, editing, or if the visitor asked for less motion.
-  // Restarts after each manual change, so a click gets a full pause before the next automatic change.
+  // After an arrow press or swipe, waits 30 seconds before the automatic change resumes.
   useEffect(() => {
     if (count < 2 || editing || paused) return undefined;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return undefined;
-    const timer = setInterval(() => setIndex((n) => (n + 1) % count), CHANGE_EVERY_MS);
-    return () => clearInterval(timer);
-  }, [count, editing, paused, index]);
+    let timer;
+    const start = () => {
+      timer = setInterval(() => setIndex((n) => (n + 1) % count), CHANGE_EVERY_MS);
+    };
+    const wait = holdUntil - Date.now();
+    const resume = wait > 0 ? setTimeout(start, wait) : null;
+    if (!resume) start();
+    return () => {
+      clearTimeout(resume);
+      clearInterval(timer);
+    };
+  }, [count, editing, paused, index, holdUntil]);
 
   if (!editing && count === 0) return null;
 
   function step(by) {
     setIndex((i + by + count) % count);
+    setHoldUntil(Date.now() + HOLD_AFTER_PRESS_MS);
   }
 
   // Each picture keeps its own shape: the frame takes the picture's proportions, so nothing is cropped.
