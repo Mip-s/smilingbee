@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Text } from "../ui.jsx";
 import { assetUrl, useContent } from "../ContentContext.jsx";
 import { EditPicture, EditText, patchItem } from "../EditControls.jsx";
+import { Rich } from "../RichText.jsx";
 
 // The council always has 9 seats, laid out like a council table: eight seats in two rows of four
 // on the left, and the ninth seat alone on the right.
@@ -179,7 +180,7 @@ function Island({ c, from, source, onDone }) {
         <div className="focus-details">
           <Text value={c.name} as="h2" className={`pixel${vacant ? " vacant" : ""}`} />
           <Text value={c.territory} className="territory" />
-          <Text value={c.description} className="pre-line" />
+          <Rich value={c.description} />
         </div>
       </div>
     </div>
