@@ -17,6 +17,7 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [touchX, setTouchX] = useState(null);
+  const [ratios, setRatios] = useState({}); // picture address -> width divided by height, once loaded
 
   const count = images.length;
   const i = count ? Math.min(index, count - 1) : 0;
@@ -35,6 +36,13 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
 
   function step(by) {
     setIndex((i + by + count) % count);
+  }
+
+  // Each picture keeps its own shape: the frame takes the picture's proportions, so nothing is cropped.
+  function measure(src, img) {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    const ratio = img.naturalWidth / img.naturalHeight;
+    setRatios((r) => (r[src] === ratio ? r : { ...r, [src]: ratio }));
   }
 
   function swipe(endX) {
@@ -81,6 +89,7 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
       {shown ? (
         <div
           className="carousel-stage"
+          style={{ "--ratio": ratios[shown] ?? 16 / 9 }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocus={() => setPaused(true)}
@@ -88,7 +97,12 @@ export function PictureCarousel({ images = [], alt = "", onChange }) {
           onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
           onTouchEnd={(e) => swipe(e.changedTouches[0].clientX)}
         >
-          <img src={assetUrl(shown)} alt={count > 1 ? `${alt} (picture ${i + 1} of ${count})` : alt} loading="lazy" />
+          <img
+            src={assetUrl(shown)}
+            alt={count > 1 ? `${alt} (picture ${i + 1} of ${count})` : alt}
+            loading="lazy"
+            onLoad={(e) => measure(shown, e.currentTarget)}
+          />
           {count > 1 && (
             <>
               <button type="button" className="carousel-arrow prev" aria-label="Previous picture" onClick={() => step(-1)}>‹</button>
